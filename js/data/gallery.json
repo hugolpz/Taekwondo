@@ -22,5 +22,53 @@
     "video": "https://www.youtube.com/embed/_IV8AS9GqRA?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Sa_Jang_Diagram.PNG",
     "program": "images/program_poomsae_4.png"
+  },
+  {
+    "title": "Poomsae Taegeuk Oh Jang",
+    "video": "https://www.youtube.com/embed/FIje5o7KJVQ?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Oh_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_5.png"
+  },
+  {
+    "title": "Poomsae Taegeuk Yuk Jang",
+    "video": "https://www.youtube.com/embed/BzYkTauSLK0?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Yuk_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_6.png"
+  },
+  {
+    "title": "Poomsae Taegeuk Chil Jang",
+    "video": "https://www.youtube.com/embed/7rXHdRkKg-0?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Chil_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_7.png"
+  },
+  {
+    "title": "Poomsae Taegeuk Pal Jang",
+    "video": "https://www.youtube.com/embed/M78aSpAxMvc?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Pal_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_8.png"
+  },
+  {
+    "title": "Koryo Poomsae (Taegeuk Gu Jang)",
+    "video": "https://www.youtube.com/embed/3pVsu7SInGw?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Gu_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_9.png"
+  },
+  {
+    "title": "Geumgang Poomsae (Taegeuk Ship Jang)",
+    "video": "https://www.youtube.com/embed/eqs95ICFdmY?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_10.png"
+  },
+  {
+    "title": "Taebaek Poomsae (Taegeuk Ship Il Jang)",
+    "video": "https://www.youtube.com/embed/HW3DjYNn1Dk?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_Il_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_11.png"
+  },
+  {
+    "title": "Pyongwon Poomsae (Taegeuk Ship I Jang)",
+    "video": "https://www.youtube.com/embed/nGQJ9OvghQM?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_I_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_12.png"
   }
 ]
