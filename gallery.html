@@ -57,7 +57,7 @@
                             <img :src="currentSection.walk" :alt="currentSection.title + ' walk diagram'" style="max-width: 100%; height: auto;">
                         </div>
                     </div>
-                     <div class="cdx-grid">
+                     <div class="cdx-grid" v-if="currentSection.program && currentSection.program.length > 0">
                         <div class="cdx-grid__column--span-12">
                             <h3 class="cdx-title cdx-title--h4">Program Images</h3>
                             <div class="program-images">

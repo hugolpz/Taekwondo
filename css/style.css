@@ -3,6 +3,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0 auto; /* Center the body */
+    max-width: 800px; /* Limit body width */
 }
 
 .cdx-container {
@@ -133,4 +135,18 @@ body {
 
 .cdx-tabs {
     margin-bottom: 1.5em;
+}
+
+.program-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align images to the start */
+}
+
+.program-images img {
+    max-width: 100%; /* Ensure images don't exceed container width */
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    min-width: calc(50% - 10px); /* Two images per row, minus margin */
 }
