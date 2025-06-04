@@ -1,0 +1,61 @@
+/* Custom styles can go here if Wikimedia Codex doesn't cover everything */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.cdx-container {
+    flex: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cdx-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff; /* Ensure header has a background */
+}
+
+.cdx-footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-bottom: 1em;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cdx-section {
+    margin-bottom: 2em;
+}
+
+.cdx-table img {
+    display: block;
+    margin: auto;
+}
+
+.cdx-search-input {
+    margin-bottom: 1.5em;
+}
+
+.cdx-tabs {
+    margin-bottom: 1.5em;
+}

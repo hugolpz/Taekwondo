@@ -1,0 +1,38 @@
+[
+  {
+    "ko": "앞차기",
+    "transcription": "Ap Chagi",
+    "fr": "Coup de pied avant",
+    "en": "Front Kick",
+    "image": "images/ap_chagi.png",
+    "appearance": "Taegeuk Il Jang",
+    "tag": "kick"
+  },
+  {
+    "ko": "몸통 지르기",
+    "transcription": "Momtong Jireugi",
+    "fr": "Coup de poing niveau moyen",
+    "en": "Middle Punch",
+    "image": "images/momtong_jireugi.png",
+    "appearance": "Taegeuk Il Jang",
+    "tag": "punch"
+  },
+  {
+    "ko": "아래 막기",
+    "transcription": "Arae Makgi",
+    "fr": "Blocage bas",
+    "en": "Low Block",
+    "image": null,
+    "appearance": "Taegeuk Il Jang",
+    "tag": "block"
+  },
+  {
+    "ko": "사범님",
+    "transcription": "Sabomnim",
+    "fr": "Instructeur",
+    "en": "Instructor",
+    "image": null,
+    "appearance": "General",
+    "tag": "general"
+  }
+]

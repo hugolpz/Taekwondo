@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Taekwondo Club</title>
+    <link rel="stylesheet" href="https://unpkg.com/@wikimedia/codex@1.3.0/dist/codex.style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app" class="cdx-container">
+        <header class="cdx-header">
+            <div class="cdx-header__start">
+                 <a href="index.html" class="cdx-header__wordmark">
+                    <span class="cdx-icon cdx-icon--wordmark-wikimedia">Taekwondo Club</span>
+                </a>
+            </div>
+            <div class="cdx-header__end">
+                <nav class="cdx-header__nav">
+                    <ul class="cdx-header__nav-list">
+                        <li class="cdx-header__nav-item"><a href="index.html" class="cdx-header__nav-link">Home</a></li>
+                        <li class="cdx-header__nav-item"><a href="gallery.html" class="cdx-header__nav-link cdx-header__nav-link--active">Gallery</a></li>
+                        <li class="cdx-header__nav-item"><a href="vocabulary.html" class="cdx-header__nav-link">Vocabulary</a></li>
+                        <li class="cdx-header__nav-item"><a href="about.html" class="cdx-header__nav-link">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <h1 class="cdx-title">Gallery</h1>
+
+            <div class="cdx-tabs" v-if="sections.length > 0">
+                <ul class="cdx-tabs__list">
+                    <li v-for="(section, index) in sections" :key="index" 
+                        :class="['cdx-tabs__tab', { 'cdx-tabs__tab--selected': index === currentSectionIndex }]">
+                        <button @click="showSection(index)" class="cdx-tabs__tab-button">{{ section.title }}</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div v-if="currentSection" class="cdx-card">
+                <div class="cdx-card__text">
+                    <h2 class="cdx-title cdx-title--h3">{{ currentSection.title }}</h2>
+                    
+                    <div class="cdx-grid">
+                        <div class="cdx-grid__column--span-6">
+                            <h3 class="cdx-title cdx-title--h4">Video Demonstration</h3>
+                            <div class="video-container">
+                                <iframe width="100%" height="315" :src="currentSection.video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="cdx-grid__column--span-6">
+                            <h3 class="cdx-title cdx-title--h4">Walkthrough Diagram</h3>
+                            <img :src="currentSection.walk" :alt="currentSection.title + ' walk diagram'" style="max-width: 100%; height: auto;">
+                        </div>
+                    </div>
+                     <div class="cdx-grid">
+                        <div class="cdx-grid__column--span-12">
+                            <h3 class="cdx-title cdx-title--h4">Program Image</h3>
+                            <img :src="currentSection.program" :alt="currentSection.title + ' program image'" style="max-width: 100%; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <p class="cdx-text">Loading gallery...</p>
+            </div>
+        </main>
+
+        <footer class="cdx-footer">
+            <div class="cdx-footer__content">
+                <p>&copy; 2024 Taekwondo Club Awesome. All rights reserved.</p>
+                <p>Created by GitHub Copilot</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/gallery_app.js"></script>
+</body>
+</html>
