@@ -1,20 +1,26 @@
 [
   {
     "title": "Poomsae Taegeuk Il Jang",
-    "video": "https://www.youtube.com/embed/videoseries?list=PL_1_S_g9Polozae_n2nmmtZk0oCHSLRDR",
+    "video": "https://www.youtube.com/embed/pcBdDKaw35Q?start=17&end=47&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Il_Jang_Diagram.PNG",
     "program": "images/program_poomsae_1.png"
   },
   {
     "title": "Poomsae Taegeuk Ee Jang",
-    "video": "https://www.youtube.com/embed/your_video_id_2",
+    "video": "https://www.youtube.com/embed/pcBdDKaw35Q?start=10&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ee_Jang_Diagram.PNG",
     "program": "images/program_poomsae_2.png"
   },
   {
     "title": "Poomsae Taegeuk Sam Jang",
-    "video": "https://www.youtube.com/embed/your_video_id_3",
+    "video": "https://www.youtube.com/embed/rLjNmmQRS1U?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Sam_Jang_Diagram.PNG",
     "program": "images/program_poomsae_3.png"
+  },
+  {
+    "title": "Poomsae Taegeuk Sa Jang",
+    "video": "https://www.youtube.com/embed/_IV8AS9GqRA?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
+    "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Sa_Jang_Diagram.PNG",
+    "program": "images/program_poomsae_4.png"
   }
 ]
