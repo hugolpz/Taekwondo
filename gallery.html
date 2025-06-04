@@ -59,8 +59,10 @@
                     </div>
                      <div class="cdx-grid">
                         <div class="cdx-grid__column--span-12">
-                            <h3 class="cdx-title cdx-title--h4">Program Image</h3>
-                            <img :src="currentSection.program" :alt="currentSection.title + ' program image'" style="max-width: 100%; height: auto;">
+                            <h3 class="cdx-title cdx-title--h4">Program Images</h3>
+                            <div class="program-images">
+                                <img v-for="(image, index) in currentSection.program" :key="index" :src="image" :alt="currentSection.title + ' program image ' + (index + 1)" style="max-width: 200px; height: auto; margin-right: 10px;">
+                            </div>
                         </div>
                     </div>
                 </div>
