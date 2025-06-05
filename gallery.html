@@ -32,13 +32,19 @@
         <main>
             <h1 class="cdx-title">Gallery</h1>
 
-            <div class="cdx-tabs" v-if="sections.length > 0">
-                <ul class="cdx-tabs__list">
-                    <li v-for="(section, index) in sections" :key="index" 
-                        :class="['cdx-tabs__tab', { 'cdx-tabs__tab--selected': index === currentSectionIndex }]">
-                        <button @click="showSection(index)" class="cdx-tabs__tab-button">{{ section.title }}</button>
-                    </li>
-                </ul>
+            <div v-if="sections.length > 0" class="cdx-button-group" style="margin-bottom: 1.5rem;">
+                <template v-for="(section, index) in sections">
+                    <button
+                        :key="index"
+                        class="cdx-button"
+                        :class="{ 'cdx-button--primary': index === currentSectionIndex, 'cdx-button--normal': index !== currentSectionIndex }"
+                        @click="showSection(index)"
+                        type="button"
+                        style="margin-right: 0.5rem;"
+                    >
+                        {{ section.title }}
+                    </button>
+                </template>
             </div>
 
             <div v-if="currentSection" class="cdx-card">
