@@ -2,6 +2,7 @@
   {
     "short": "Taegeuk Il Jang",
     "title": "Poomsae Taegeuk Il Jang",
+    "local": "img/태극 1장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/pcBdDKaw35Q?start=17&end=47&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Il_Jang.png",
     "program": [ "img/Taekwondo_jaune-0.jpg" ]
@@ -9,6 +10,7 @@
   {
     "short": "Taegeuk Ee Jang",
     "title": "Poomsae Taegeuk Ee Jang",
+    "local": "img/태극 2장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/jZiFWTuXS8Y?start=10&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Ee_Jang.png",
     "program": [ "img/Taekwondo_jaune-1.jpg", "img/Taekwondo_jaune-2.jpg" ]
@@ -16,6 +18,7 @@
   {
     "short": "Taegeuk Sam Jang",
     "title": "Poomsae Taegeuk Sam Jang",
+    "local": "img/태극 3장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/rLjNmmQRS1U?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Sam_Jang.png",
     "program": []
@@ -23,6 +26,7 @@
   {
     "short": "Taegeuk Sa Jang",
     "title": "Poomsae Taegeuk Sa Jang",
+    "local": "img/태극 4장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/_IV8AS9GqRA?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Sa_Jang.png",
     "program": []
@@ -30,6 +34,7 @@
   {
     "short": "Taegeuk Oh Jang",
     "title": "Poomsae Taegeuk Oh Jang",
+    "local": "img/태극 5장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/FIje5o7KJVQ?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Oh_Jang.png",
     "program": []
@@ -37,6 +42,7 @@
   {
     "short": "Taegeuk Yuk Jang",
     "title": "Poomsae Taegeuk Yuk Jang",
+    "local": "img/태극 6장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/BzYkTauSLK0?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Yuk_Jang.png",
     "program": []
@@ -44,6 +50,7 @@
   {
     "short": "Taegeuk Chil Jang",
     "title": "Poomsae Taegeuk Chil Jang",
+    "local": "img/태극 7장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/7rXHdRkKg-0?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Chil_Jang.png",
     "program": []
@@ -51,6 +58,7 @@
   {
     "short": "Taegeuk Pal Jang",
     "title": "Poomsae Taegeuk Pal Jang",
+    "local": "img/태극 8장 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/M78aSpAxMvc?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taegeuk_Pal_Jang.png",
     "program": []
@@ -58,6 +66,7 @@
   {
     "short": "Koryo Poomsae",
     "title": "Koryo Poomsae (Taegeuk Gu Jang)",
+    "local": "img/태백 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/3pVsu7SInGw?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Gu_Jang_Diagram.PNG",
     "program": []
@@ -65,6 +74,7 @@
   {
     "short": "Geumgang Poomsae",
     "title": "Geumgang Poomsae (Taegeuk Ship Jang)",
+    "local": "img/금강 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/eqs95ICFdmY?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_Jang_Diagram.PNG",
     "program": []
@@ -72,6 +82,7 @@
   {
     "short": "Taebaek Poomsae",
     "title": "Taebaek Poomsae (Taegeuk Ship Il Jang)",
+    "local": "img/고려 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/HW3DjYNn1Dk?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_Il_Jang_Diagram.PNG",
     "program": []
@@ -79,8 +90,22 @@
   {
     "short": "Pyongwon Poomsae",
     "title": "Pyongwon Poomsae (Taegeuk Ship I Jang)",
+    "local": "img/평원 후면버전 [그대로 따라 하기].mp4",
     "video": "https://www.youtube.com/embed/nGQJ9OvghQM?list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     "walk": "https://commons.wikimedia.org/wiki/Special:FilePath/Taeguk_Ship_I_Jang_Diagram.PNG",
     "program": []
   }
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
