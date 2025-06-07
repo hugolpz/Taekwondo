@@ -39,33 +39,26 @@
                 </div>
             </div>
 
-            <table class="cdx-table">
+            <table id="vocab-table" class="cdx-table">
                 <thead>
                     <tr>
-                        <th>Korean (Hangeul)</th>
-                        <th>Transcription</th>
-                        <th>French</th>
-                        <th>English</th>
-                        <th>Image</th>
-                        <th>First Appearance</th>
                         <th>Tag</th>
+                        <th>Romanized Korean</th>
+                        <th>Korean</th>
+                        <th>Chinese</th>
+                        <th>English</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-if="filteredVocabulary.length === 0">
-                        <td colspan="7" class="cdx-text--center">No matching terms found.</td>
+                        <td colspan="5" class="cdx-text--center">No matching terms found.</td>
                     </tr>
                     <tr v-for="term in filteredVocabulary" :key="term.ko">
+                        <td>{{ term.tag }}</td>
+                        <td>{{ term['ko-rom'] }}</td>
                         <td>{{ term.ko }}</td>
-                        <td>{{ term.transcription }}</td>
-                        <td>{{ term.fr }}</td>
+                        <td>{{ term.zh }}</td>
                         <td>{{ term.en }}</td>
-                        <td>
-                            <img v-if="term.image" :src="term.image" :alt="term.transcription" style="max-height: 50px; max-width: 50px;">
-                            <span v-else>-</span>
-                        </td>
-                        <td>{{ term.appearance }}</td>
-                        <td><span class="cdx-badge">{{ term.tag }}</span></td>
                     </tr>
                 </tbody>
             </table>
