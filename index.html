@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- HEAD ------------------------------------------------------ -->
+
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest jQuery from Google CDN -->
+    <script src="js/jquery@3.1.1.min.js"></script>
+    <!-- CSS frameworks : latests, theme -->
+    <script defer src="js/fontawesome@5.8.1.js"></script>
+    <link rel="stylesheet" href="css/bulma@0.9.0.min.css">
+
+    <!-- Custom to project -->
+    <script src="js/data/lessons.js"></script>
+    <script src="js/data/vocabulary.js"></script>
+    <script src="js/transform.js"></script>
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+
+    <!-- PWA TEST -->
+    <link rel="manifest" href="/manifest.webmanifest.json">
+    <script src="pwa-service-worker.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      };
+    </script>
+
+  </head>
+
+  <body>
+    <!-- TOPBAR ------------------------------------------------------ -->
+    <style>
+      .unicorn {
+        /*
+        background-color: white;
+        background: url('data:image/svg+xml;charset=UTF-8,<svg data-icon="utensil-fork" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path _fill="%2300D1B2" fill="%23F14668" d="M631.98 32H531.73c5.93-6.14 10.4-13.63 12.18-22.36 1.01-4.96-2.88-9.64-7.94-9.64H416c-70.69 0-128 57.31-128 128h-.08c-63.92 0-104.2-36.78-127.66-90.27-3.22-7.35-13.61-7.76-17.04-.5C133.49 57.82 128 80.8 128 105.1c0 67.04 51.01 133.09 128 147.74v3.17c-76.89 0-133.8-49.67-152.67-108.99-5.58 4.17-10.75 8.86-15.33 14.1V160c-48.53 0-88 39.47-88 88v56c0 8.84 7.16 16 16 16h16c8.84 0 16-7.16 16-16v-56c0-13.22 6.87-24.39 16.78-31.68-.21 2.58-.78 5.05-.78 7.68 0 27.64 11.84 52.36 30.54 69.88l-25.72 68.6a63.945 63.945 0 0 0-2.16 37.99l24.85 99.41A15.982 15.982 0 0 0 107.02 512h65.96c10.41 0 18.05-9.78 15.52-19.88l-26.31-105.26 23.84-63.59 102.04 22.33V496c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V318.22c19.74-20.19 32-47.75 32-78.22 0-.22-.07-.42-.08-.64V136.89l16 7.11 18.9 37.7c7.45 14.87 25.05 21.55 40.49 15.37l32.55-13.02a31.997 31.997 0 0 0 20.12-29.74L544 83.3l92.42-36.65c6.59-4.38 3.48-14.65-4.44-14.65zM480 96c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z"></path></svg>') center no-repeat;*/
+        background-image: url('./images/TKD-home-3.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; /* Resize the background image to cover the entire container */
+        width: 32px;
+        height: 32px;
+        transform: rotateY(0deg) rotate(-0deg);
+      }
+
+    </style>
+    <nav class="navbar has-shadow">
+      <!-- NAVBAR BASE: while on small devices-->
+      <div class="navbar-brand is-size-6">
+        <!-- LOGO AND NAME -->
+        <a id="appLogo" class="navbar-item" href="./index.html">
+          <i class="unicorn" style="margin-right: 0.2rem !important;"></i>
+          <span class="fra has-text-weight-bold has-text-black is-size-5 is-hidden-touch">Happy TKD <e class="has-text-success">(Alpha version)</e></span>
+        </a>
+        <span id="intro" class="navbar-item fra has-text-weight-semibold is-size-6 is-hidden-mobile">Apprenez le Taekwondo avec Hugo !</span>
+    <!-- 
+        <a id="btnDialogues" class="navbar-item"><span class="icon"><i class="fa fa-align-left"></i></span> <span>Dialogues</span></a>
+        <a id="btnLexiques" class="navbar-item"><span class="icon has-text-danger"><i class="fa fa-scroll"></i></span> <span>Lexiques</span></a>
+    -->
+        <!-- Github & Twitter : is-hidden-desktop ; style="margin-left:auto;" -->
+        <a class="navbar-item is-hidden-desktop has-text-primary" style="margin-left:auto;" href="https://github.com/" target="_blank">
+          <span class="icon"><i class="fab fa-lg fa-github-alt fa-w-15"></i></span>
+        </a>
+        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/intent/tweet?text=Je%20teste%20Chinois-Sans-Frontières.%0ahttps:%2F%2Fhugolpz.github.io%2FCSF%2F&amp;via=Github%20@hugo_lz&amp;hashtags=Chinois" target="_blank">
+          <span class="icon" style="color: #55acee;"><i class="fab fa-lg fa-twitter fa-w-16"></i></span>
+        </a>
+        <!-- BURGER when small devices -->
+        <div id="navbarBurger" class="navbar-burger" style="margin-left:0;">
+          <!-- data-target="navbar-menu" -->
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- NAVBAR ADDON: while on large devices-->
+      <div id="navbar-menu" class="navbar-menu is-size-6">
+        <!-- Aligned LEFT tabs/menus -->
+  <!--
+        <div class="navbar-start">
+          <a id="btnAbout" class="navbar-item"><span class="icon"><i class="fa fa-users"></i></span> <span>Crédits</span></a>
+        </div>
+  -->
+        <!-- Aligned RIGHT tabs/menus -->
+        <div class="navbar-end">
+          <!-- Github & Twitter : is-hidden-touch -->
+          <!-- <a class="navbar-item is-hidden-touch has-text-primary" href="https://github.com/hugolpz/csf" target="_blank">
+            <span class="icon"><i class="fab fa-lg fa-github-alt fa-w-15"></i></span>
+          </a> -->
+          <a class="navbar-item is-hidden-touch" href="https://twitter.com/intent/tweet?text=Je%20teste%20Chinois-Sans-Frontières.%0ahttps:%2F%2Fhugolpz.github.io%2FCSF%2F&amp;via=Github%20@hugo_lz&amp;hashtags=Chinois" target="_blank">
+            <span class="icon" style="color: #55acee;"><i class="fab fa-lg fa-twitter fa-w-16"></i></span>
+          </a>
+          <div class="navbar-item">
+            <p class="control">
+              <a class="button is-success is-small fonts is-rounded" onclick="toggleBetweenFonts()">
+                <strong>字型</strong>
+              </a>
+            </p>
+          </div>
+          <!-- <div class="navbar-item">
+            <p class="control">
+
+              <a class="button is-primary is-small" href="">
+                <strong>Installer</strong>
+              </a>
+            </p>
+          </div> -->
+        </div><!-- /navbar-end -->
+      </div><!-- /navbar-menu -->
+    </nav>
+    <script>
+      var burger = document.querySelector("#navbarBurger");
+      burger.addEventListener("click", (event) => {
+        event.stopPropagation();
+        document.querySelector(".navbar-burger").classList.toggle("is-active"); // burgers
+        document.querySelector(".navbar-menu").classList.toggle("is-active"); // menus
+      });
+
+    </script>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <!-- MAIN -------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <main class="columns is-tablet mx-0 my-0">
+      <!-- SIDEBAR ----------------------------------------------------- -->
+      <section class="menu-left column is-2 px-1 pt-1 pb-0" id="main-left">
+        <!-- Document's options ---------- -->
+        <article id="lessonsPointers" class="message mb-1 is-primary">
+          <div class="message-header is-small">
+            Programme <i class="icon caret has-background-primary-dark is-rounded"></i>
+          </div>
+          <div class="message-body">
+            <p class="buttons">
+              <a class="button is-small has-background-L00" onclick="hideClassShowOne('.lesson','#T1L00');">
+                <span style="color:#FFF">Leçon 0</span>
+              </a>
+              <a class="button is-small has-background-L01" onclick="hideClassShowOne('.lesson','#T1L01');">
+                <span>Leçon 1</span>
+              </a>
+              <a class="button is-small has-background-L02" onclick="hideClassShowOne('.lesson','#T1L02');">
+                <span>Leçon 2</span>
+              </a>
+              <a class="button is-small has-background-L03" onclick="hideClassShowOne('.lesson','#T1L03');">
+                <span>Leçon 3</span>
+              </a>
+              <a class="button is-small has-background-L04" onclick="hideClassShowOne('.lesson','#T1L04');">
+                <span>Leçon 4</span>
+              </a>
+              <a class="button is-small has-background-L05" onclick="hideClassShowOne('.lesson','#T1L05');">
+                <span style="color:#FFF">Leçon 5</span>
+              </a>
+              <a class="button is-small has-background-L06" onclick="hideClassShowOne('.lesson','#T1L06');">
+                <span style="color:#FFF">Leçon 6</span>
+              </a>
+              <a class="button is-small has-background-L07" onclick="hideClassShowOne('.lesson','#T1L07');">
+                <span style="color:#FFF">Leçon 7</span>
+              </a>
+              <a class="button is-small has-background-L08" onclick="hideClassShowOne('.lesson','#T1L08');">
+                <span>Leçon 8</span>
+              </a>
+              <a class="button is-small has-background-L09" onclick="hideClassShowOne('.lesson','#T1L09');">
+                <span>Leçon 9</span>
+              </a>
+              <a class="button is-small has-background-L10" onclick="hideClassShowOne('.lesson','#T1L10');">
+                <span>Leçon 10</span>
+              </a>
+              <a class="button is-small has-background-L11" onclick="hideClassShowOne('.lesson','#T1L11');">
+                <span>Leçon 11</span>
+              </a>
+              <a class="button is-small has-background-L12" onclick="hideClassShowOne('.lesson','#T1L12');">
+                <span style="color:#FFF">Leçon 12</span>
+              </a>
+              <a class="button is-small is-danger" onclick="showTargetsAll('.lesson')">
+                <span>Tout afficher</span>
+              </a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Show ---- -->
+        <article id="masking" class="message mb-1 is-success">
+          <div class="message-header">
+            Filtres<i class="icon caret has-background-primary-dark is-rounded"></i>
+          </div>
+          <div class="message-body">
+            <p class="buttons">
+
+              <a class="button is-small is-success" onclick="toggleTarget('.text')">
+                <span class="icon has-text-danger">
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span>Leçons</span>
+              </a>
+              <a class="button is-small is-danger" onclick="toggleTarget('.vocabulary')">
+                <span>Lexiques</span>
+                <span class="icon">
+                  <i class="fas fa-eye"></i>
+                </span>
+              </a>
+              <a class="button is-small is-success" onclick="
+                showTargetsAll('.text,.vocabulary')">
+                <span id="tout">Tout afficher</span>
+                <span class="icon">
+                  <i class="fas fa-eye"></i>
+                </span>
+              </a>
+            </p>
+          </div>
+<script>
+$('#masking .buttons a').click(function(){
+  var tout = $(this).find('#tout');
+  console.log(tout);
+  $(this).toggleClass('has-background-grey-light')
+  if (tout[0]) { 
+    $(this).toggleClass('has-background-grey-light')
+    $('#masking .buttons a').removeClass('has-background-grey-light');
+  }
+});
+// hide all
+$(".hook > *").hide();
+$(".hook > h3").show();
+// Click h3, show content
+$('h3').click(function(){
+  $(this).parent(".hook").find("h3").hide();
+  $(this).parent(".hook").find("*").toggle();
+})
+
+/* *************************************************************** */
+/* Toggles ******************************************************** */
+// ex: hideClassShowOne('.lesson','#T1L01');
+var hideClassShowOne = function(classToHide,idToShow) {
+  itemsToHide = document.querySelectorAll(classToHide);
+  itemsToHide.forEach(function(item) { item.style.display = 'none'});
+  document.querySelectorAll(idToShow)[0].style.display = 'block';
+};
+// ex: showTargetsAll('.text');
+var showTargetsAll = function(targetsToShow) {
+  itemsToShow = document.querySelectorAll(targetsToShow);
+  itemsToShow.forEach(function(item) { item.style.display = 'block'});
+};
+
+// ex: toggleTarget('.text')
+var toggleTarget = function(target) {
+	var targets = document.querySelectorAll(target)
+  var current = targets[0].style.display || "block";
+  targets.forEach(function(item) { item.style.display = current == 'block'?'none':'block'});
+}
+
+// Toggle sections contents
+</script>
+        </article>
+
+        <!-- Legal, Credits and Links ---- -->
+        <article class="message mb-1 is-danger">
+          <div class="message-header">
+            Crédits <i class="icon caret has-background-primary-dark is-rounded"></i>
+          </div>
+          <div class="message-body">
+            <div class="content is-small">
+              <p>Programme du <b><i>club de Taekwondo de Labenne</i></b>:Isabelle Vaqué.</p>
+              <p>Collection des contenus et conception web: Hugo Lopez.</p>
+            </div>
+          </div>
+        </article>
+
+        <style>
+          .menu-left> {}
+
+          .menu-left .caret {
+            transform: rotate(0deg);
+            background: url('data:image/svg+xml;charset=UTF-8,<svg data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="white" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>') center no-repeat;
+            background-size: 50%
+          }
+
+          .menu-left .message .message-body {
+            display: none;
+          }
+
+          .menu-left .message.is-active .message-body {
+            display: block;
+          }
+
+          .menu-left .message.is-active .caret {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg data-icon="aling-justify" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M432 416H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-128H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-128H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-128H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>') center no-repeat;
+            background-size: 50%;
+            transform: rotate(180deg);
+          }
+
+          .caret.is-rounded {
+            border-radius: 50%;
+          }
+
+        </style>
+        <script>
+          var menus = document.querySelectorAll(".menu-left .message-header");
+          menus.forEach((menu) => {
+            // adds on each menu an onClick event
+            menu.addEventListener("click", (event) => {
+              event.stopPropagation();
+              // action: act on each menus, remove or toggle class "is-active"
+              menus.forEach(function(item) {
+                $message = item.closest('article');
+                $caret = item.closest('article').querySelector(".message-header .caret");
+                $messageBody = item.closest('article').querySelector(".message-body")
+                if (menu == item) {
+                  $message.classList.toggle("is-active");
+                  //	$caret.classList.toggle("is-rotate-180");
+                  //	$messageBody.classList.toggle("is-hidden");
+                } else {
+                  $message.classList.remove("is-active");
+                  // $caret.classList.remove("is-rotate-180");
+                  // $messageBody.classList.add("is-hidden");
+                }
+              });
+            });
+          });
+
+        </script>
+
+      </section>
+
+      <!-- Editors pads ------------------------------------------------ -->
+      <style>
+        /* BULMA modification */
+        .message-body {
+            padding: 1em ;
+        }
+        .message-body a.button {
+          min-width: 6.2em;
+          font-weight: 500;
+        }
+        /* Linguistic ****************************************************** */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&display=swap');
+        /*.kor { font-family: 'Noto Serif TC', serif; }  */
+        @import url("https://fonts.googleapis.com/css?family=Dosis:300,400,700,800");
+        .fra {
+          font-family: "Dosis", sans-serif;
+        }
+        @font-face {
+          font-family: 'kaishu';
+          src:url('fonts/kaishu/AR_PL_ZenKai_Uni.woff2') format('woff2'),
+              url('fonts/kaishu/AR_PL_ZenKai_Uni.woff') format('woff'),
+              url('fonts/kaishu/AR_PL_ZenKai_Uni.ttf') format('truetype');
+          font-weight: bold;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'zhuyin';
+          unicode-range: U+3000-30FF, U+FF00-FFEF, U+4E00-9FAF; /* ← doesnt work */
+          src:url('fonts/zhuyin/HanWangKaiMediumChuIn.woff2') format('woff2'),
+              url('fonts/zhuyin/HanWangKaiMediumChuIn.woff') format('woff'),
+              url('fonts/zhuyin/HanWangKaiMediumChuIn.ttf') format('truetype');
+          font-weight: 500;
+          font-style: normal;
+          font-display: swap;
+        }
+        /* For special characters  ********************************** */
+        /* https://stackoverflow.com/questions/66647071/ ************ */
+        @font-face {
+          font-family: 'zhuyin' !important;     /* IMPORTANT: ← same name ; ↓ replacement font */
+          src:url('fonts/kaishu/AR_PL_ZenKai_Uni.woff2') format('woff2'),
+              url('fonts/kaishu/AR_PL_ZenKai_Uni.woff') format('woff'),
+              url('fonts/kaishu/AR_PL_ZenKai_Uni.ttf') format('truetype');
+          unicode-range: U+3001 !important;     /* IMPORTANT : replaced characters */
+        }
+
+        .kaishu {
+          font-family: 'kaishu';
+        }
+        .zhuyin {
+          font-family: "zhuyin";
+        }
+        .pinyin {
+          font-family: "pinyin";
+        }
+        
+        h3.kor { 
+          margin-right:.4em; 
+        }
+        p.kor {
+          position: relative;
+          padding-right:1em;
+        }
+        .kor .icon {
+          /*top:0.1em;
+          right: 0em;
+          position: absolute;*/
+          pointer-events: none;
+        }
+        /* **************************************************************** */
+        /* LESSONS BOXES ************************************************** */
+        .lesson {
+          box-sizing: border-box;
+          word-break: break-all;
+          /*border: 1px #cecece solid;
+          overflow: hidden; */
+        }
+
+        /* Structure ****************************************************** */
+        .text,
+        .vocabulary{  
+          border-bottom: 1px solid #00000022;
+          margin-bottom:2em;
+        }
+        .text img { 
+          max-width: 400px;
+          max-width: -webkit-fill-available;
+        }
+        .inline { display:inline-block; }
+
+        #T1L04 .text span.icon { display: none; }
+        #T1L08 .text span.icon { display: none; }
+        
+        /* Colors: https://bulma.io/documentation/helpers/color-helpers/ */
+        .has-background-L00     { background: #2160C4 }
+        .has-background-red,
+        .has-background-L01     { background: #FF3860 } /* -danger */
+        .has-background-bluesky,
+        .has-background-L02 { background: #209CEE } /* -link */
+        .has-background-green,
+        .has-background-L03   { background: #23D160 } /* -success */
+        .has-background-pink,
+        .has-background-L04    { background: #BB99AA    }
+        .has-background-purple,
+        .has-background-L05  { background: purple  }
+        .has-background-bluesea,
+        .has-background-L06 { background: #2160C4 } /* -link-dark */
+        .has-background-greengrass,
+        .has-background-L07 { background: #257942 } /* -success-dark */
+        .has-background-orange,
+        .has-background-L08  { background: orange  }
+        .has-background-yellow,
+        .has-background-L09  { background: #FFD700 }
+        .has-background-cyan,
+        .has-background-L10 { background: #00CED1 }
+        .has-background-lime,
+        .has-background-L11 { background: #BFFF00 }
+        .has-background-brown,
+        .has-background-L12 { background: #8B4513 }
+
+        .has-text-L00 { color: #2160C4; }
+        .has-text-L01 { color: #FF3860; }
+        .has-text-L02 { color: #209CEE; }
+        .has-text-L03 { color: #23D160; }
+        .has-text-L04 { color: #BB99AA; }
+        .has-text-L05 { color: purple; }
+        .has-text-L06 { color: #2160C4; }
+        .has-text-L07 { color: #257942; }
+        .has-text-L08 { color: orange; }
+        .has-text-L09 { color: #FFD700; }
+        .has-text-L10 { color: #00CED1; }
+        .has-text-L11 { color: #BFFF00; }
+        .has-text-L12 { color: #8B4513; }
+
+        /* Tables ********************************************************* */
+        .vocabulary table {
+          width: 100%;
+        }
+        .vocabulary table thead tr:first-of-type,
+        .vocabulary table tr:nth-of-type(even) { background: #EEEEEE66; }
+        .vocabulary table tr:nth-of-type(odd) { background-color: #FFFFFF88; }
+        
+
+        .vocabulary table, 
+        .vocabulary table th.kor { 
+          font-family: "Dosis";
+        }
+        .vocabulary table tr * { white-space: nowrap }
+        .vocabulary table.is-minimal .less { display: none; }
+        .vocabulary table.is-minimal .zho   { display: none; }
+        .vocabulary table td.phon, 
+        .vocabulary table td.fra {
+          white-space: normal; 
+          word-break: keep-all;
+        }
+
+        /* Pratices ******************************************************* */
+        div ol { list-style-type: lower-alpha; }
+        li { margin-left: 2em;}
+
+      </style>
+  
+      <section id="main-center" class="column container has-background-white">  <!-- is-10 px-6 pt-6 pb-6 -->
+          
+        <script>
+        document.querySelector('body').onclick= function (){
+          if(document.querySelector('#home').style.display!=='none'){
+            toggleTarget('.home');
+            showTargetsAll('.lesson');
+            toggleTarget('#scrollToTopBtn');
+          }
+        }
+        // 
+        // Click h3 title, toggle content
+        $('document').ready(function(){
+          $('.hook > *').addClass('is-hidden');
+          $('.hook > h3').toggleClass('is-hidden');
+          $('h3').click(function(){
+            $(this).parent(".hook").find(">*").toggleClass('is-hidden');
+            $(this).toggleClass('is-hidden');
+          })
+        });
+        </script>
+<!-- 
+- [x] Home page redrawing
+- [x] Authors improvements
+- [x] Text image smaller
+- [] Listing words to record
+- [] Contact phd
+- [] Recordings
+
+- [] PWA button
+- [x] Fix Audios Comprehension
+- [x] Fix Audios Texts 4,8 => no audio available ; dialogues => textes
+
+- [] Add lesson number.
+- [x] Display section titles. Click title, toggle contents.
+- []
+  
+-->
+        <div id="home" class="home columns is-tablet is-multiline is-centered is-vcentered has-text-centered has-ratio is-4by3">
+          <div class="column is-12">
+            <div class="content subtitle is-size-6 fra has-text-centered">
+              <img src="./images/TKD-home-1.png" style="max-width: 60%;" alt="home image">
+              <br><br>
+              <p style="background: #FFFFFF88;padding:.5em;">Programme du <b><i>club de Taekwondo de Labenne</i>: Isabelle Vaqué</b>
+                <br>Collection des contenus et conception web: Hugo Lopez.
+              </p>
+              <!-- <p class="subtitle is-size-6 fra" style="background: #FFFFFF88;padding:.5em;">Financé par ....</p> -->
+              <a href="">
+                <figure class="image is-32x32" style="display:inline-block;margin:0;">
+                  <img src="./images/profile-yug.png" style="max-width: 32px;">
+                </figure>
+              </a>
+            </div>
+          </div>
+          <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+              toggleTarget('.lesson');
+              toggleTarget('#scrollToTopBtn');
+            });
+          </script>
+          <br clear="all">
+        </div>
+
+        <div id="T1L00" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">0<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L00VA" class="hook vocabulary" data-list="taekwondo,tae,kwon,do" data-class='is-minimal'></div>
+            <div id="T1L00VB" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop,wi,momtong / junggan,arae,eolgul,arae,chagi,makgi,chigi,seogi / jase" data-class='is-minimal'></div><!--
+            <div id="T1L01VS" class="hook vocabulary" data-list="詞,第一課,段,漢字"
+              data-class='is-minimal'></div>
+            <div id="T1L01VES" class="hook vocabulary" data-list="瑪丹娜,歌手,德國,畢卡索,西班牙,畫家,村上春樹,作家"
+              data-class='is-minimal'></div> -->
+          </div>
+        </div>
+
+        <div id="T1L01" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L01TA" class="hook text"></div>
+            <div id="T1L01TB" class="hook text"></div>
+            <div id="T1L01TC" class="hook text"></div>
+          </div>
+      
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L01VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+              data-class='is-minimal'></div>
+          </div>
+        </div>
+      
+      
+        <div id="T1L02" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L02TA" class="hook text"></div>
+            <div id="T1L02TB" class="hook text"></div>
+            <div id="T1L02TC" class="hook text"></div>
+          </div>
+
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L02VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+              data-class='is-minimal'></div>
+          </div>
+        </div>
+
+        <div id="T1L03" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L03TA" class="hook text"></div>
+            <div id="T1L03TB" class="hook text"></div><!--
+            <div id="T1L03TC" class="hook text"></div>
+          </div>
+
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L03VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+              data-class='is-minimal'></div> -->
+          </div>
+        </div>
+
+        <div id="T1L04" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L04TA" class="hook text"></div>
+            <div id="T1L04TB" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L05" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L05TA" class="hook text"></div>
+            <div id="T1L05TB" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L06" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L06TA" class="hook text"></div>
+            <div id="T1L06TB" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L07" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L07TA" class="hook text"></div>
+            <div id="T1L07TB" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L08" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L08TA" class="hook text"></div>
+            <div id="T1L08TB" class="hook text"></div>
+          </div>
+        </div>
+
+        <!-- BLACK BELT -->
+        <div id="T1L09" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L09TA" class="hook text"></div>
+          </div>
+        </div>
+      <!-- -->
+        <div id="T1L10" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L10TA" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L11" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L11TA" class="hook text"></div>
+          </div>
+        </div>
+
+        <div id="T1L12" class="lesson">
+          <div>
+            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L12TA" class="hook text"></div>
+          </div>
+        </div>
+<!-- -->
+
+      </section>
+
+<script>
+
+/* *************************************************************** */
+/* DIALOGUES ***************************************************** */
+var textDataToTemplate = function(obj) {
+  var lesson = obj.lesson,
+    section  = obj.section,
+    titleHan = obj.titleHan.replace(/、/,'<i class="kaishu">、</i>'),
+    titleFra = obj.titleFra,
+    guidelineFra = obj.guidelineFra;
+    image = obj.image || [];
+    video = obj.video || undefined;
+  return `
+  <h3>
+    <span class="title is-size-4-touch is-size-3 kor is-inline-block has-text-L${lesson}">${titleHan}</span>
+    <span class="title is-size-5-touch is-size-4 fra is-inline-block">${titleFra}</span>
+  </h3>
+  <p class="subtitle fra"> ${guidelineFra} </p>
+  <div class="columns is-tablet is-multiline is-centered is-vcentered">
+    ${video ? `<div class="column is-6">
+      <iframe width="100%" height="315" src="${video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+    </div>` : ''}
+    ${image[0] ? 
+      image.map(img => `
+      <div class="column is-6 has-text-centered">
+        <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;">
+      </div>`).join('')
+      :''
+    }
+  </div>
+  <br clear="all">`;
+};
+
+
+
+const textHooks = document.querySelectorAll('.text');
+textHooks.forEach(el => {
+  var lesson = el.id[3]+el.id[4],
+      section = el.id.substring(6),
+  obj = lessons.filter(function(item) {
+    return item.lesson == lesson && item.section == section
+  });
+  document.getElementById(el.id).innerHTML = textDataToTemplate(obj[0]);
+});
+
+/* *************************************************************** */
+/* VOCABULARIES ************************************************** */
+// tag, ko, phon, phonfr, zh, en, fr, 
+function json2Table(json, optionalClasses, titles) {
+  optionalClasses = optionalClasses || 'has-background-success',
+    // let cols = Object.keys(json[0]);
+    titlesClasses = ['num', 'cmn', 'kor', 'phon', 'eng'],
+    titles = titles || ['#', 'Chinois', 'Coréen', 'Romanisation', 'Définition'];
+  var lesson = (json[0] && 'lesson' in json[0]) ? json[0].lesson : '-na',
+      section = (json[0] && 'section' in json[0]) ? json[0].section : '-na';
+  let headers = titles
+    .map((col, i) => `<th class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]=='kor'?'kor':titlesClasses[i]}">${titles[i]}</th>`)
+    .join("");
+
+    console.log("json: ", json)
+  let rows = json.map((row, num) => {
+    console.log("row: ", row)
+    let tds = titles.map((col, i) => `
+    <td class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]}">
+      ${
+      (() => {
+        switch (titlesClasses[i]) {
+        case 'kor':
+          return `<span class="icon is-small"><i class="fas fa-play" aria-hidden="true"></i></span>${row[titlesClasses[i]]}`;
+        case 'num':
+          return num + 1;
+        case 'cmn':
+          return row[titlesClasses[i]]; // keeps the option to convert it all to hans or hant
+        default:
+          return row[titlesClasses[i]];
+        }
+      })()
+      }
+    </td>
+    `).join("");
+    return `<tr>${tds}</tr>`; //<td class="num">${num+1}</td>
+  })
+  .join("");
+
+  //build the table
+  const table = `
+<table class="table ${optionalClasses} is-fullwidth is-size-6-mobile is-size-5">
+  <thead>
+    <tr>${headers}</tr>
+  <thead>
+  <tbody>
+    ${rows}
+  <tbody>
+<table>
+  <br clear="all">`;
+  return table;
+}
+
+const vocabularyHooks = document.querySelectorAll('.vocabulary');
+vocabularyHooks.forEach(el => {
+  var lesson = el.id[3] + el.id[4],
+      section = el.id.substring(6);
+  switch (section) {
+      case 'S': titleKor='추가 어휘 chuga eohwi',titleFra='Lexique supplémentaire';break;
+      default:  titleKor='수업 어휘 sueob eohwi',titleFra='Lexique du cours';
+  }
+  var header= `
+    <h3>
+      <span class="title is-size-4-touch is-size-3 kor has-text-L${lesson} is-inline-block">${titleKor}</span>
+      <span class="title is-size-5-touch is-size-4 fra is-inline-block">${titleFra}</span>
+    </h3>`
+  document.getElementById(el.id).insertAdjacentHTML('beforeend', header);
+
+
+  var list  = el.getAttribute("data-list").split(','),
+    classes = el.getAttribute("data-class");
+  var sectionDict = list
+    .map(word => dictionary.find(item => item.phon === word))
+    .filter(Boolean);
+  var dictHtmlTable = json2Table(sectionDict, classes+ ` has-background-L${lesson}`);
+  document.getElementById(el.id).insertAdjacentHTML('beforeend', dictHtmlTable);
+})
+
+
+/* *************************************************************** */
+/* Audios ******************************************************** */
+var audioCurrent = new Audio("url");
+var playString = function(str) {
+	audioCurrent.pause();
+  //audioCurrent.src = `https://github.com/hugolpz/audio-cmn/raw/master/96k/hsk/cmn-${t2s(wordStr)}.mp3`;
+  audioCurrent.src='https://translate.google.com/translate_tts?ie=UTF-8&idx=0&client=tw-ob&tl=ko&q=' + str;
+  audioCurrent.play();
+  console.log(str, ':', audioCurrent.src);
+};
+
+const spokenElements = document.querySelectorAll('.kor, .cmn');
+spokenElements.forEach(spokenElement => {
+  spokenElement.addEventListener('click', (spokenElement) => {
+    console.log(spokenElement);
+    //regex = /([abcd]\) )?(.+)([:punct:]|\?|…|!)/;//。|\!…
+    wordStr = spokenElement.target.textContent//.replace(regex, '$2');
+    playString(wordStr);
+  })
+})
+
+
+/* ************************************************************************* */
+/* toggleNClasses ********************************************************** */
+var toggleNClasses = function(selector, arrClasses) {
+  var elements = Array.from(document.querySelectorAll(selector)),
+  	classList = document.querySelector(selector).classList,     // check on first element onl
+    intersect = arrClasses.filter(x => classList.contains(x)), // class present
+    curr = intersect[0] || arrClasses[0],        // assumes default state is class1.
+    next = arrClasses[(arrClasses.indexOf(curr) + 1) % arrClasses.length];
+  // loop over all the class defined in selector
+  elements.forEach(function(item, i) {
+    arrClasses.forEach(classN => item.classList.remove(classN)) // clean classes
+    item.classList.add(next); // add new class
+  })
+}
+// Toggle fonts
+var toggleBetweenFonts= function() {
+  toggleNClasses('.kor', ['_', 'kaishu', 'zhuyin'])
+}
+toggleBetweenFonts(); // 
+
+
+/* ************************************************************************* */
+/* Print kor lessons ******************************************************** */
+var  text=[];
+document.querySelectorAll(".kor").forEach(e=>{
+  text.push(e.textContent.trim());
+});
+console.log(text)
+</script>
+
+
+<style>
+#scrollToTopBtn {
+  position: fixed;
+  right:20px;
+  bottom:10px;
+  background-color: #00000088;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 48px;
+  width: 48px
+}
+</style>
+<button id="scrollToTopBtn"
+class="has-background-L3">☝️</button>
+<script>
+var scrollToTopBtn = document.getElementById("scrollToTopBtn")
+var rootElement = document.documentElement
+
+function scrollToTop() {
+  // Scroll to top logic
+  rootElement.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  })
+}
+scrollToTopBtn.addEventListener("click", scrollToTop);
+</script>
+
+    </main>
+
+    <!-- FOOTER ------------------------------------------------------ -->
+    <section class="footer is-hidden">
+      <div class="content has-text-centered">Footer</div>
+    </section>
+
+  </body>
+
+</html>
