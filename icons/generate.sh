@@ -9,7 +9,7 @@ usage() {
   echo "Usage: $0"
   echo "This script generates use an SVG file to generate PNG icons."
   echo "Ensure you have Inkscape or ImageMagick installed."
-  echo "Run this script in the directory containing 'icons.svg'."
+  echo "Run this script in the directory containing 'icon.svg'."
   exit 1
 }
 # Help message
@@ -25,7 +25,7 @@ if ! command -v inkscape &> /dev/null && ! command -v convert &> /dev/null; then
 fi
 # Generate PNG icons from the SVG file
 # Ensure the SVG file exists
-SVG_FILE="icons.svg"
+SVG_FILE="icon.svg"
 if [ ! -f "$SVG_FILE" ]; then
   echo "Error: SVG file '$SVG_FILE' not found."
   exit 1
@@ -36,18 +36,18 @@ SIZES=(16 32 48 64 72 96 128 192 256 512)
 if command -v inkscape &> /dev/null; then
   echo "Using Inkscape to generate icons..."
   for size in "${SIZES[@]}"; do
-    inkscape -o "icons-${size}.png" -w "$size" -h "$size" "$SVG_FILE"
+    inkscape -o "icon-${size}.png" -w "$size" -h "$size" "$SVG_FILE"
   done
 elif command -v convert &> /dev/null; then
   echo "Using ImageMagick to generate icons..."
   for size in "${SIZES[@]}"; do
-    convert -background none -resize "${size}x${size}" "$SVG_FILE" "icons-${size}.png"
+    convert -background none -resize "${size}x${size}" "$SVG_FILE" "icon-${size}.png"
   done
 fi
 # Notify the user of completion
 echo "Icon generation complete. PNG files created:"
 for size in "${SIZES[@]}"; do
-  echo "icons-${size}.png"
+  echo "icon-${size}.png"
 done
 # Create favicon.ico from the generated icons
 if command -v convert &> /dev/null; then
@@ -57,5 +57,5 @@ else
   exit 1
 fi
 # Convert the generated PNG files into a favicon.ico file
-convert icons-16.png icons-32.png icons-48.png favicon.ico  
+convert icon-16.png icon-32.png icon-48.png favicon.ico  
 # End of script
