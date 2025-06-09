@@ -4,44 +4,44 @@
   "description": "Personal website to learn various things",
   "icons": [
     {
-      "src": "/images/icons-32.png",
+      "src": "/icons/icons-32.png",
       "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "/images/icons-48.png",
+      "src": "/icons/icons-48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/images/icons-64.png",
+      "src": "/icons/icons-64.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "/images/icons-96.png",
+      "src": "/icons/icons-96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/images/icons-128.png",
+      "src": "/icons/icons-128.png",
       "type": "image/png",
       "sizes": "128x128"
     },
     {
       "importance": "required",
-      "src": "/images/icons-192.png",
+      "src": "/icons/icons-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/images/icons-256.png",
+      "src": "/icons/icons-256.png",
       "type": "image/png",
       "sizes": "256x256"
     },
     {
       "importance": "required",
-      "src": "/images/icons-512.png",
+      "src": "/icons/icons-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -57,7 +57,7 @@
       "short_name": "Home",
       "description": "The project's home page",
       "url": "/?source=pwa",
-      "icons": [{ "src": "/images/icons-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/icons-192.png", "sizes": "192x192" }]
     }
   ]
 }
