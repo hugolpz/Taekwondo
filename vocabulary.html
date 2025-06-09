@@ -1,89 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Vocabulary Table</title>
-  <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-    th { background: #f0f0f0; }
-  </style>
-</head>
-<body>
-  <h1>Vocabulary Table</h1>
-<table id="vocabulary-table"></table>
-<script src="js/data/vocabulary.js"></script>
-<script>
-var json2html = function (json,elementId) {
-    // Collect all unique keys
-    const allKeys = Array.from(
-        new Set(dictionary.flatMap(obj => Object.keys(obj)))
-    );
-    // Create table and tbody
-    const table = document.getElementById(elementId);
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-    // Render rows
-    json.forEach((obj, i) => {
-        const tr = document.createElement('tr');
-        allKeys.forEach(key => {
-            const cell = document.createElement(i === 0 ? 'th' : 'td');
-            cell.textContent = i === 0 ? key : (obj[key] !== undefined ? obj[key] : '');
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vocabulary Table</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+      th {
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vocabulary Table</h1>
+    <table id="vocabulary-table"></table>
+    <h1>Gdoc Vocabulary Table</h1>
+    <div id="table-container"></div>
+    <div id="table-container2"></div>
+    <script src="js/data/vocabulary.js"></script>
+    <script>
+      var json2html = function (json, elementId) {
+        // Collect all unique keys
+        const allKeys = Array.from(
+          new Set(json.flatMap((obj) => Object.keys(obj)))
+        );
+        // Create table and tbody
+        const table = document.getElementById(elementId);
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+        // Create header row
+        const tr = document.createElement("tr");
+        allKeys.forEach((key) => {
+          var cell = document.createElement("th");
+          cell.textContent = key;
+          tr.appendChild(cell);
+        });
+        thead.appendChild(tr);
+
+        // Render data rows
+        json.forEach((obj) => {
+          const tr = document.createElement("tr");
+          allKeys.forEach((key) => {
+            var cell = document.createElement("td");
+            cell.textContent = obj[key] !== undefined ? obj[key] : "";
             tr.appendChild(cell);
+          });
+          tbody.appendChild(tr);
         });
-        if (i === 0) { thead.appendChild(tr);  }
-        else { tbody.appendChild(tr);  }
-    });
-    table.appendChild(thead);
-    table.appendChild(tbody);
-}
-json2html(dictionary,'vocabulary-table')
-</script>
+        table.appendChild(thead);
+        table.appendChild(tbody);
+      };
+      json2html(dictionary, "vocabulary-table");
 
-  <h1>Gdoc Vocabulary Table</h1>
-  <div id="table-container"></div>
-  <div id="table-container2"></div>
-  <script>
-    // Google Sheets CSV export URL
-    const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRh7qWK8ISRwP2jw3AvgZ5YVgfLMFW_fOax52rskaaoHAxKXYOLQe9piDjGJIK0_Ehhj49ygZ5f0nw_/pub?gid=0&single=true&output=csv";
+      // Google Sheets CSV export URL
+      const sheetCsvUrl =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRh7qWK8ISRwP2jw3AvgZ5YVgfLMFW_fOax52rskaaoHAxKXYOLQe9piDjGJIK0_Ehhj49ygZ5f0nw_/pub?gid=0&single=true&output=csv&origin=*";
 
-    var dictionaryGdoc = [];
+      var dictionaryGdoc = [];
 
-    function csvToArray(str, delimiter = ",") {
-      const rows = str.trim().split('\n');
-      const headers = rows[0].split(delimiter).map(h => h.trim());
-      return rows.slice(1).map(row => {
-        const values = row.split(delimiter);
-        const obj = {};
-        headers.forEach((header, i) => {
-          obj[header] = values[i] ? values[i].trim() : "";
+      function csvToArray(str, delimiter = ",") {
+        const rows = str.trim().split("\n");
+        // Regex to split CSV row, handling quoted fields with commas
+        function splitCSVRow(row) {
+          const regex = new RegExp(
+            `(?:\\s*"(.*?)"\\s*|\\s*([^"${delimiter}]+)\\s*|\\s*\\s*)(?:${delimiter}|$)`,
+            "g"
+          );
+          const result = [];
+          let match;
+          let lastIndex = 0;
+          while ((match = regex.exec(row)) && lastIndex < row.length) {
+            lastIndex = regex.lastIndex;
+            if (match[1] !== undefined) {
+              result.push(match[1].replace(/""/g, '"'));
+            } else if (match[2] !== undefined) {
+              result.push(match[2]);
+            } else {
+              result.push("");
+            }
+          }
+          // Remove trailing empty field if row ends with delimiter
+          if (row.endsWith(delimiter)) result.push("");
+          return result;
+        }
+        const headers = splitCSVRow(rows[0]).map((h) => h.trim());
+        return rows.slice(1).map((row) => {
+          const values = splitCSVRow(row);
+          const obj = {};
+          headers.forEach((header, i) => {
+            obj[header] = values[i] ? values[i].trim() : "";
+          });
+          return obj;
         });
-        return obj;
-      });
-    }
+      }
 
-    fetch(sheetCsvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        dictionaryGdoc = csvToArray(csv);
-        renderTable(dictionaryGdoc);
-        json2html(dictionaryGdoc,'table-container2')
-      });
+      fetch(sheetCsvUrl)
+        .then((response) => response.text())
+        .then((csv) => {
+          dictionaryGdoc = csvToArray(csv);
+          console.log(dictionaryGdoc);
+          renderTable(dictionaryGdoc);
+          json2html(dictionaryGdoc, "table-container2");
+        });
 
-    function renderTable(dictionary) {
-      if (!dictionary.length) return;
-      const keys = Object.keys(dictionary[0]);
-      let html = '<table><thead><tr>';
-      keys.forEach(key => html += `<th>${key}</th>`);
-      html += '</tr></thead><tbody>';
-      dictionary.forEach(entry => {
-        html += '<tr>';
-        keys.forEach(key => html += `<td>${entry[key]}</td>`);
-        html += '</tr>';
-      });
-      html += '</tbody></table>';
-      document.getElementById('table-container').innerHTML = html;
-    }
-  </script>
-</body>
+      function renderTable(dictionary) {
+        if (!dictionary.length) return;
+        const keys = Object.keys(dictionary[0]);
+        let html = "<table><thead><tr>";
+        keys.forEach((key) => (html += `<th>${key}</th>`));
+        html += "</tr></thead><tbody>";
+        dictionary.forEach((entry) => {
+          html += "<tr>";
+          keys.forEach((key) => (html += `<td>${entry[key]}</td>`));
+          html += "</tr>";
+        });
+        html += "</tbody></table>";
+        document.getElementById("table-container").innerHTML = html;
+      }
+    </script>
+  </body>
 </html>
