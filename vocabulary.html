@@ -14,8 +14,7 @@
 <table id="vocabulary-table"></table>
 <script src="js/data/vocabulary.js"></script>
 <script>
-
-var json2html = (json,elementId) {
+var json2html = function (json,elementId) {
     // Collect all unique keys
     const allKeys = Array.from(
         new Set(dictionary.flatMap(obj => Object.keys(obj)))
@@ -25,7 +24,7 @@ var json2html = (json,elementId) {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
     // Render rows
-    dictionary.forEach((obj, i) => {
+    json.forEach((obj, i) => {
         const tr = document.createElement('tr');
         allKeys.forEach(key => {
             const cell = document.createElement(i === 0 ? 'th' : 'td');
@@ -38,11 +37,12 @@ var json2html = (json,elementId) {
     table.appendChild(thead);
     table.appendChild(tbody);
 }
-json2html{dictionary,'vocabulary-table'}
+json2html(dictionary,'vocabulary-table')
 </script>
 
   <h1>Gdoc Vocabulary Table</h1>
   <div id="table-container"></div>
+  <div id="table-container2"></div>
   <script>
     // Google Sheets CSV export URL
     const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRh7qWK8ISRwP2jw3AvgZ5YVgfLMFW_fOax52rskaaoHAxKXYOLQe9piDjGJIK0_Ehhj49ygZ5f0nw_/pub?gid=0&single=true&output=csv";
@@ -67,6 +67,7 @@ json2html{dictionary,'vocabulary-table'}
       .then(csv => {
         dictionaryGdoc = csvToArray(csv);
         renderTable(dictionaryGdoc);
+        json2html(dictionaryGdoc,'table-container2')
       });
 
     function renderTable(dictionary) {
