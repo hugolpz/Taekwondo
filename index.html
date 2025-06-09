@@ -131,14 +131,14 @@
       <!-- SIDEBAR ----------------------------------------------------- -->
       <section class="menu-left column is-2 px-1 pt-1 pb-0" id="main-left">
         <!-- Document's options ---------- -->
-        <article id="lessonsPointers" class="message mb-1 is-primary">
+        <article id="lessonsPointers" class="message mb-1 is-primary is-active">
           <div class="message-header is-small">
             Programme <i class="icon caret has-background-primary-dark is-rounded"></i>
           </div>
           <div class="message-body">
             <p class="buttons">
               <a class="button is-small has-background-L00" onclick="hideClassShowOne('.lesson','#T1L00');">
-                <span style="color:#FFF">Leçon 0</span>
+                <span>Leçon 0</span>
               </a>
               <a class="button is-small has-background-L01" onclick="hideClassShowOne('.lesson','#T1L01');">
                 <span>Leçon 1</span>
@@ -153,13 +153,13 @@
                 <span>Leçon 4</span>
               </a>
               <a class="button is-small has-background-L05" onclick="hideClassShowOne('.lesson','#T1L05');">
-                <span style="color:#FFF">Leçon 5</span>
+                <span>Leçon 5</span>
               </a>
               <a class="button is-small has-background-L06" onclick="hideClassShowOne('.lesson','#T1L06');">
-                <span style="color:#FFF">Leçon 6</span>
+                <span>Leçon 6</span>
               </a>
               <a class="button is-small has-background-L07" onclick="hideClassShowOne('.lesson','#T1L07');">
-                <span style="color:#FFF">Leçon 7</span>
+                <span>Leçon 7</span>
               </a>
               <a class="button is-small has-background-L08" onclick="hideClassShowOne('.lesson','#T1L08');">
                 <span>Leçon 8</span>
@@ -174,7 +174,7 @@
                 <span>Leçon 11</span>
               </a>
               <a class="button is-small has-background-L12" onclick="hideClassShowOne('.lesson','#T1L12');">
-                <span style="color:#FFF">Leçon 12</span>
+                <span>Leçon 12</span>
               </a>
               <a class="button is-small is-danger" onclick="showTargetsAll('.lesson')">
                 <span>Tout afficher</span>
@@ -223,12 +223,13 @@ $('#masking .buttons a').click(function(){
   }
 });
 // hide all
-$(".hook > *").hide();
-$(".hook > h3").show();
+$(".thematic > *").hide();
+$(".thematic > h3").show();
 // Click h3, show content
 $('h3').click(function(){
-  $(this).parent(".hook").find("h3").hide();
-  $(this).parent(".hook").find("*").toggle();
+  $(this).parent(".thematic").find("h3").hide();
+  $(this).parent(".thematic").find("*").toggle();
+  // = show all contents of the thematic
 })
 
 /* *************************************************************** */
@@ -238,6 +239,7 @@ var hideClassShowOne = function(classToHide,idToShow) {
   itemsToHide = document.querySelectorAll(classToHide);
   itemsToHide.forEach(function(item) { item.style.display = 'none'});
   document.querySelectorAll(idToShow)[0].style.display = 'block';
+  showTargetsAll(idToShow+' > *'); // show all contents of the lesson
 };
 // ex: showTargetsAll('.text');
 var showTargetsAll = function(targetsToShow) {
@@ -418,32 +420,6 @@ var toggleTarget = function(target) {
         #T1L08 .text span.icon { display: none; }
         
         /* Colors: https://bulma.io/documentation/helpers/color-helpers/ */
-        .has-background-L00     { background: #2160C4 }
-        .has-background-red,
-        .has-background-L01     { background: #FF3860 } /* -danger */
-        .has-background-bluesky,
-        .has-background-L02 { background: #209CEE } /* -link */
-        .has-background-green,
-        .has-background-L03   { background: #23D160 } /* -success */
-        .has-background-pink,
-        .has-background-L04    { background: #BB99AA    }
-        .has-background-purple,
-        .has-background-L05  { background: purple  }
-        .has-background-bluesea,
-        .has-background-L06 { background: #2160C4 } /* -link-dark */
-        .has-background-greengrass,
-        .has-background-L07 { background: #257942 } /* -success-dark */
-        .has-background-orange,
-        .has-background-L08  { background: orange  }
-        .has-background-yellow,
-        .has-background-L09  { background: #FFD700 }
-        .has-background-cyan,
-        .has-background-L10 { background: #00CED1 }
-        .has-background-lime,
-        .has-background-L11 { background: #BFFF00 }
-        .has-background-brown,
-        .has-background-L12 { background: #8B4513 }
-
         .has-text-L00 { color: #2160C4; }
         .has-text-L01 { color: #FF3860; }
         .has-text-L02 { color: #209CEE; }
@@ -457,6 +433,43 @@ var toggleTarget = function(target) {
         .has-text-L10 { color: #00CED1; }
         .has-text-L11 { color: #BFFF00; }
         .has-text-L12 { color: #8B4513; }
+
+        .has-background-L00 { background: #2160C4 } /* -link-dark */
+        .has-background-red,
+        .has-background-L01 { background: #FF3860 } /* -danger */
+        .has-background-bluesky,
+        .has-background-L02 { background: #209CEE } /* -link */
+        .has-background-green,
+        .has-background-L03 { background: #23D160 } /* -success */
+        .has-background-pink,
+        .has-background-L04 { background: #BB99AA }
+        .has-background-purple,
+        .has-background-L05 { background: purple }
+        .has-background-bluesea,
+        .has-background-L06 { background: #2160C4 } /* -link-dark */
+        .has-background-greengrass,
+        .has-background-L07 { background: #257942 } /* -success-dark */
+        .has-background-orange,
+        .has-background-L08 { background: orange  }
+        .has-background-yellow,
+        .has-background-L09 { background: #FFD700 }
+        .has-background-cyan,
+        .has-background-L10 { background: #00CED1 }
+        .has-background-lime,
+        .has-background-L11 { background: #BFFF00 }
+        .has-background-brown,
+        .has-background-L12 { background: #8B4513 }
+
+        .button.has-background-L00,
+        h2.has-background-L00 { color: #FFFFFF } /* -link-dark */
+        .button.has-background-L05,
+        h2.has-background-L05 { color: #FFFFFF }
+        .button.has-background-L06,
+        h2.has-background-L06 { color: #FFFFFF } /* -link-dark */
+        .button.has-background-L07,
+        h2.has-background-L07 { color: #FFFFFF } /* -success-dark */
+        .button.has-background-L12,
+        h2.has-background-L12 { color: #FFFFFF }
 
         /* Tables ********************************************************* */
         .vocabulary table {
@@ -499,10 +512,10 @@ var toggleTarget = function(target) {
         // 
         // Click h3 title, toggle content
         $('document').ready(function(){
-          $('.hook > *').addClass('is-hidden');
-          $('.hook > h3').toggleClass('is-hidden');
+          $('.thematic > *').addClass('is-hidden');
+          $('.thematic > h3').toggleClass('is-hidden');
           $('h3').click(function(){
-            $(this).parent(".hook").find(">*").toggleClass('is-hidden');
+            $(this).parent(".thematic").find(">*").toggleClass('is-hidden');
             $(this).toggleClass('is-hidden');
           })
         });
@@ -548,33 +561,33 @@ var toggleTarget = function(target) {
           </script>
           <br clear="all">
         </div>
-
+        <div id="course">
         <div id="T1L00" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">0<i class="kaishu">기본 gibon</i></h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Bases</h2>
-            <div id="T1L00VA" class="hook vocabulary" data-list="taekwondo,tae,kwon,do" data-class='is-minimal'></div>
-            <div id="T1L00VB" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop,wi,momtong / junggan,arae,eolgul,arae,chagi,makgi,chigi,seogi / jase" data-class='is-minimal'></div><!--
-            <div id="T1L01VS" class="hook vocabulary" data-list="詞,第一課,段,漢字"
+            <h2 class="title has-text-L00 is-size-4-touch is-size-3 kor is-inline-block">0<i class="kaishu">、</i>기본 gibon</h2>
+            <h2 class="title has-text-L00 is-size-5-touch is-size-4 fra is-inline-block">Bases</h2>
+            <div id="T1L00VA" class="thematic vocabulary" data-list="taekwondo,tae,kwon,do" data-class='is-minimal'></div>
+            <div id="T1L00VB" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop,wi,momtong / junggan,arae,eolgul,arae,chagi,makgi,chigi,seogi / jase" data-class='is-minimal'></div><!--
+            <div id="T1L01VS" class="thematic vocabulary" data-list="詞,第一課,段,漢字"
               data-class='is-minimal'></div>
-            <div id="T1L01VES" class="hook vocabulary" data-list="瑪丹娜,歌手,德國,畢卡索,西班牙,畫家,村上春樹,作家"
+            <div id="T1L01VES" class="thematic vocabulary" data-list="瑪丹娜,歌手,德國,畢卡索,西班牙,畫家,村上春樹,作家"
               data-class='is-minimal'></div> -->
           </div>
         </div>
 
         <div id="T1L01" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L01TA" class="hook text"></div>
-            <div id="T1L01TB" class="hook text"></div>
-            <div id="T1L01TC" class="hook text"></div>
+            <h2 class="title has-text-L01 is-size-4-touch is-size-3 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L01 is-size-5-touch is-size-4 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L01TA" class="thematic text"></div>
+            <div id="T1L01TB" class="thematic text"></div>
+            <div id="T1L01TC" class="thematic text"></div>
           </div>
-      
+            
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L01VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+            <h2 class="title has-text-L01 is-size-4-touch is-size-3 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title has-text-L01 is-size-5-touch is-size-4 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L01VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
               data-class='is-minimal'></div>
           </div>
         </div>
@@ -582,114 +595,114 @@ var toggleTarget = function(target) {
       
         <div id="T1L02" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L02TA" class="hook text"></div>
-            <div id="T1L02TB" class="hook text"></div>
-            <div id="T1L02TC" class="hook text"></div>
+            <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L02TA" class="thematic text"></div>
+            <div id="T1L02TB" class="thematic text"></div>
+            <div id="T1L02TC" class="thematic text"></div>
           </div>
 
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L02VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+            <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L02VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
               data-class='is-minimal'></div>
           </div>
         </div>
 
         <div id="T1L03" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L03TA" class="hook text"></div>
-            <div id="T1L03TB" class="hook text"></div><!--
-            <div id="T1L03TC" class="hook text"></div>
+            <h2 class="title has-text-L03 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L03 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L03TA" class="thematic text"></div>
+            <div id="T1L03TB" class="thematic text"></div>
+            <div id="T1L03TC" class="thematic text"></div>
           </div>
-
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L03VA" class="hook vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-              data-class='is-minimal'></div> -->
+            <h2 class="title has-text-L03 is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+            <h2 class="title has-text-L03 is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+            <div id="T1L03VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+              data-class='is-minimal'></div>
           </div>
         </div>
 
         <div id="T1L04" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L04TA" class="hook text"></div>
-            <div id="T1L04TB" class="hook text"></div>
+            <h2 class="title has-text-L04 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L04 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L04TA" class="thematic text"></div>
+            <div id="T1L04TB" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L05" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L05TA" class="hook text"></div>
-            <div id="T1L05TB" class="hook text"></div>
+            <h2 class="title has-text-L05 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L05 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L05TA" class="thematic text"></div>
+            <div id="T1L05TB" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L06" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L06TA" class="hook text"></div>
-            <div id="T1L06TB" class="hook text"></div>
+            <h2 class="title has-text-L06 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L06 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L06TA" class="thematic text"></div>
+            <div id="T1L06TB" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L07" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L07TA" class="hook text"></div>
-            <div id="T1L07TB" class="hook text"></div>
+            <h2 class="title has-text-L07 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L07 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L07TA" class="thematic text"></div>
+            <div id="T1L07TB" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L08" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L08TA" class="hook text"></div>
-            <div id="T1L08TB" class="hook text"></div>
+            <h2 class="title has-text-L08 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L08 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L08TA" class="thematic text"></div>
+            <div id="T1L08TB" class="thematic text"></div>
           </div>
         </div>
 
         <!-- BLACK BELT -->
         <div id="T1L09" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L09TA" class="hook text"></div>
+            <h2 class="title has-text-L09 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L09 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L09TA" class="thematic text"></div>
           </div>
         </div>
-      <!-- -->
+        <!-- -->
         <div id="T1L10" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L10TA" class="hook text"></div>
+            <h2 class="title has-text-L10 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L10 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L10TA" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L11" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L11TA" class="hook text"></div>
+            <h2 class="title has-text-L11 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L11 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L11TA" class="thematic text"></div>
           </div>
         </div>
 
         <div id="T1L12" class="lesson">
           <div>
-            <h2 class="title is-size-3-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title is-size-4-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L12TA" class="hook text"></div>
+            <h2 class="title has-text-L12 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
+            <h2 class="title has-text-L12 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
+            <div id="T1L12TA" class="thematic text"></div>
           </div>
+        </div>
         </div>
 <!-- -->
 
@@ -702,25 +715,35 @@ var toggleTarget = function(target) {
 var textDataToTemplate = function(obj) {
   var lesson = obj.lesson,
     section  = obj.section,
-    titleHan = obj.titleHan.replace(/、/,'<i class="kaishu">、</i>'),
+    titleKor = obj.titleKor.replace(/、/,'<i class="kaishu">、</i>'),
     titleFra = obj.titleFra,
     guidelineFra = obj.guidelineFra;
     image = obj.image || [];
     video = obj.video || undefined;
   return `
   <h3>
-    <span class="title is-size-4-touch is-size-3 kor is-inline-block has-text-L${lesson}">${titleHan}</span>
-    <span class="title is-size-5-touch is-size-4 fra is-inline-block">${titleFra}</span>
+    <span class="title is-size-5-touch is-size-4 kor is-inline-block has-text-L${lesson}">${titleKor}</span>
+    <span class="title is-size-6-touch is-size-5 fra is-inline-block">${titleFra}</span>
   </h3>
-  <p class="subtitle fra"> ${guidelineFra} </p>
+  <p class="is-size-5 fra"> ${guidelineFra} </p>
   <div class="columns is-tablet is-multiline is-centered is-vcentered">
-    ${video ? `<div class="column is-6">
-      <iframe width="100%" height="315" src="${video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+    ${video ? `<div class="column is-12">
+      <figure class="image is-16by9">
+        <iframe
+          class="has-ratio"
+          src="${video}"
+          frameborder="0"
+          allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        ></iframe>
+      </figure>
     </div>` : ''}
     ${image[0] ? 
       image.map(img => `
       <div class="column is-6 has-text-centered">
-        <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;">
+        <figure class="image">
+          <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;">
+        </figure>
       </div>`).join('')
       :''
     }
@@ -730,8 +753,8 @@ var textDataToTemplate = function(obj) {
 
 
 
-const textHooks = document.querySelectorAll('.text');
-textHooks.forEach(el => {
+const textthematics = document.querySelectorAll('.text');
+textthematics.forEach(el => {
   var lesson = el.id[3]+el.id[4],
       section = el.id.substring(6),
   obj = lessons.filter(function(item) {
@@ -742,7 +765,7 @@ textHooks.forEach(el => {
 
 /* *************************************************************** */
 /* VOCABULARIES ************************************************** */
-// tag, ko, phon, phonfr, zh, en, fr, 
+// Tools
 function json2Table(json, optionalClasses, titles) {
   optionalClasses = optionalClasses || 'has-background-success',
     // let cols = Object.keys(json[0]);
@@ -763,7 +786,7 @@ function json2Table(json, optionalClasses, titles) {
       (() => {
         switch (titlesClasses[i]) {
         case 'kor':
-          return `<span class="icon is-small"><i class="fas fa-play" aria-hidden="true"></i></span>${row[titlesClasses[i]]}`;
+          return `<span class="icon is-small"><i class="fas fa-play" aria-hidden="true"></i></span> ${row[titlesClasses[i]]}`;
         case 'num':
           return num + 1;
         case 'cmn':
@@ -793,8 +816,9 @@ function json2Table(json, optionalClasses, titles) {
   return table;
 }
 
-const vocabularyHooks = document.querySelectorAll('.vocabulary');
-vocabularyHooks.forEach(el => {
+// Section contents' creation
+const vocabularythematics = document.querySelectorAll('.vocabulary');
+vocabularythematics.forEach(el => {
   var lesson = el.id[3] + el.id[4],
       section = el.id.substring(6);
   switch (section) {
@@ -803,8 +827,8 @@ vocabularyHooks.forEach(el => {
   }
   var header= `
     <h3>
-      <span class="title is-size-4-touch is-size-3 kor has-text-L${lesson} is-inline-block">${titleKor}</span>
-      <span class="title is-size-5-touch is-size-4 fra is-inline-block">${titleFra}</span>
+      <span class="title is-size-5-touch is-size-4 kor is-inline-block has-text-L${lesson}">${titleKor}</span>
+      <span class="title is-size-6-touch is-size-5 fra is-inline-block">${titleFra}</span>
     </h3>`
   document.getElementById(el.id).insertAdjacentHTML('beforeend', header);
 
