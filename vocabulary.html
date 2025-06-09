@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vocabulary Table</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>Vocabulary Table</h1>
+  <table id="vocabulary-table">
+    <thead>
+      <tr id="header-row"></tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <script src="js/data/vocabulary.js"></script>
+  <script>
+  // Collect all unique keys
+  const allKeys = Array.from(
+    new Set(dictionary.flatMap(obj => Object.keys(obj)))
+  );
+
+  // Render header
+  const headerRow = document.getElementById('header-row');
+  allKeys.forEach(key => {
+    const th = document.createElement('th');
+    th.textContent = key;
+    headerRow.appendChild(th);
+  });
+
+  // Render rows
+  const tbody = document.getElementById('table-body');
+  dictionary.forEach(obj => {
+    const tr = document.createElement('tr');
+    allKeys.forEach(key => {
+      const td = document.createElement('td');
+      td.textContent = obj[key] !== undefined ? obj[key] : '';
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  </script>
+
+
+  <div id="table-container"></div>
+  <script>
+    // Google Sheets CSV export URL
+    const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRh7qWK8ISRwP2jw3AvgZ5YVgfLMFW_fOax52rskaaoHAxKXYOLQe9piDjGJIK0_Ehhj49ygZ5f0nw_/pub?gid=0&single=true&output=csv";
+
+    var dictionaryGdoc = [];
+
+    function csvToArray(str, delimiter = ",") {
+      const rows = str.trim().split('\n');
+      const headers = rows[0].split(delimiter).map(h => h.trim());
+      return rows.slice(1).map(row => {
+        const values = row.split(delimiter);
+        const obj = {};
+        headers.forEach((header, i) => {
+          obj[header] = values[i] ? values[i].trim() : "";
+        });
+        return obj;
+      });
+    }
+
+    fetch(sheetCsvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        dictionaryGdoc = csvToArray(csv);
+        renderTable(dictionaryGdoc);
+      });
+
+    function renderTable(dictionary) {
+      if (!dictionary.length) return;
+      const keys = Object.keys(dictionary[0]);
+      let html = '<table><thead><tr>';
+      keys.forEach(key => html += `<th>${key}</th>`);
+      html += '</tr></thead><tbody>';
+      dictionary.forEach(entry => {
+        html += '<tr>';
+        keys.forEach(key => html += `<td>${entry[key]}</td>`);
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById('table-container').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
