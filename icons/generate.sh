@@ -31,7 +31,7 @@ if [ ! -f "$SVG_FILE" ]; then
   exit 1
 fi
 # Define the sizes for the icons
-SIZES=(32 48 64 72 96 128 192 256 512)
+SIZES=(16 32 48 64 72 96 128 192 256 512)
 # Generate icons using either Inkscape or ImageMagick based on availability   
 if command -v inkscape &> /dev/null; then
   echo "Using Inkscape to generate icons..."
@@ -49,4 +49,13 @@ echo "Icon generation complete. PNG files created:"
 for size in "${SIZES[@]}"; do
   echo "icons-${size}.png"
 done
+# Create favicon.ico from the generated icons
+if command -v convert &> /dev/null; then
+  echo "Creating favicon.ico from generated icons..."
+else
+  echo "Warning: ImageMagick is required to create favicon.ico."
+  exit 1
+fi
+# Convert the generated PNG files into a favicon.ico file
+convert icons-16.png icons-32.png icons-48.png favicon.ico  
 # End of script
