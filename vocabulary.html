@@ -11,41 +11,37 @@
 </head>
 <body>
   <h1>Vocabulary Table</h1>
-  <table id="vocabulary-table">
-    <thead>
-      <tr id="header-row"></tr>
-    </thead>
-    <tbody id="table-body"></tbody>
-  </table>
-  <script src="js/data/vocabulary.js"></script>
-  <script>
-  // Collect all unique keys
-  const allKeys = Array.from(
-    new Set(dictionary.flatMap(obj => Object.keys(obj)))
-  );
+<table id="vocabulary-table"></table>
+<script src="js/data/vocabulary.js"></script>
+<script>
 
-  // Render header
-  const headerRow = document.getElementById('header-row');
-  allKeys.forEach(key => {
-    const th = document.createElement('th');
-    th.textContent = key;
-    headerRow.appendChild(th);
-  });
-
-  // Render rows
-  const tbody = document.getElementById('table-body');
-  dictionary.forEach(obj => {
-    const tr = document.createElement('tr');
-    allKeys.forEach(key => {
-      const td = document.createElement('td');
-      td.textContent = obj[key] !== undefined ? obj[key] : '';
-      tr.appendChild(td);
+var json2html = (json,elementId) {
+    // Collect all unique keys
+    const allKeys = Array.from(
+        new Set(dictionary.flatMap(obj => Object.keys(obj)))
+    );
+    // Create table and tbody
+    const table = document.getElementById(elementId);
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+    // Render rows
+    dictionary.forEach((obj, i) => {
+        const tr = document.createElement('tr');
+        allKeys.forEach(key => {
+            const cell = document.createElement(i === 0 ? 'th' : 'td');
+            cell.textContent = i === 0 ? key : (obj[key] !== undefined ? obj[key] : '');
+            tr.appendChild(cell);
+        });
+        if (i === 0) { thead.appendChild(tr);  }
+        else { tbody.appendChild(tr);  }
     });
-    tbody.appendChild(tr);
-  });
-  </script>
+    table.appendChild(thead);
+    table.appendChild(tbody);
+}
+json2html{dictionary,'vocabulary-table'}
+</script>
 
-
+  <h1>Gdoc Vocabulary Table</h1>
   <div id="table-container"></div>
   <script>
     // Google Sheets CSV export URL
