@@ -506,10 +506,21 @@ var toggleTarget = function(target) {
         // Click h3 title, toggle content
         $('document').ready(function(){
           $('.thematic').hide(); // hide all thematics's subcontents
-         // $('.thematic > h3').toggle(); // show all h3
-          $('h2').click(function(){
-            $(this).parent().find('.thematic').toggle();
-          })
+        // $('.thematic > h3').toggle(); // show all h3
+        $('h2').click(function(){
+          $(this).parent().find('.thematic').toggle();
+        });
+
+        // Restore guideline visibility from localStorage
+        if (localStorage.getItem('guidelineVisible') === 'false') {
+          $('.guideline').hide();
+        }
+
+        $('.guideline-info').click(function(){
+          $('.guideline').toggle();
+          // Save visibility state to localStorage
+          localStorage.setItem('guidelineVisible', $('.guideline').is(':visible'));
+        });
         });
         </script>
 <!-- 
@@ -722,8 +733,13 @@ var textDataToTemplate = function(obj) {
   <h3>
     <span class="title is-size-5-touch is-size-4 kor is-inline-block has-text-L${lesson}">${titleKor}</span>
     <span class="title is-size-6-touch is-size-5 fra is-inline-block">${titleFra}</span>
+    <span class="guideline-info icon has-text-info is-small">
+      <i class="fas fa-info-circle" aria-hidden="true" style="opacity:0.5;"></i>
+    </span> 
   </h3>
-  <p class="is-size-6 fra"> ${guidelineFra} </p>
+  <p class="icon-text">  
+    <span class="guideline is-size-6 fra">${guidelineFra}</span>
+  </p>
   <div class="columns is-tablet is-multiline is-centered is-vcentered">
     ${video ? `<div class="column is-12">
       <figure class="image is-16by9">
@@ -740,13 +756,12 @@ var textDataToTemplate = function(obj) {
       image.map(img => `
       <div class="column is-6 has-text-centered">
         <figure class="image">
-          <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;">
+          <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;" loading="lazy">
         </figure>
       </div>`).join('')
       :''
     }
-  </div>
-  <br clear="all">`;
+  </div>`;
 };
 
 
