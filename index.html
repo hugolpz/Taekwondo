@@ -929,12 +929,15 @@ var playString = function(str) {
 
 const spokenElements = document.querySelectorAll('.kor, .cmn');
 spokenElements.forEach(spokenElement => {
-  spokenElement.addEventListener('click', (spokenElement) => {
-    console.log(spokenElement);
-    wordStr = spokenElement.target.textContent.replace(/[A-Za-z]/g, '').trim();
+  // Support both click and touch events
+  const handler = (event) => {
+    event.preventDefault();
+    let wordStr = event.target.textContent.replace(/[A-Za-z]/g, '').trim();
     playString(wordStr);
-  })
-})
+  };
+  spokenElement.addEventListener('click', handler);
+  spokenElement.addEventListener('touchstart', handler, {passive: false});
+});
 
 
 /* ************************************************************************* */
