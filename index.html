@@ -230,7 +230,7 @@ var hideClassShowOne = function(classToHide,idToShow) {
   itemsToHide = document.querySelectorAll(classToHide);
   itemsToHide.forEach(function(item) { $(item).hide() });
   $(document.querySelectorAll(idToShow)[0]).show();
-  showTargetsAll(idToShow+' > *'); // show all contents of the lesson
+  showTargetsAll(idToShow+' *'); // show all contents of the lesson
 };
 // ex: showTargetsAll('.text');
 var showTargetsAll = function(targetsToShow) {
@@ -824,8 +824,7 @@ function json2Table(json, optionalClasses, titles) {
   <tbody>
     ${rows}
   <tbody>
-<table>
-  <br clear="all">`;
+<table>`;
   return table;
 }
 
