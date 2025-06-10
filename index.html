@@ -222,36 +222,29 @@ $('#masking .buttons a').click(function(){
     $('#masking .buttons a').removeClass('has-background-grey-light');
   }
 });
-// hide all
-$(".thematic > *").hide();
-$(".thematic > h3").show();
-// Click h3, show content
-$('h3').click(function(){
-  $(this).parent(".thematic").find("h3").hide();
-  $(this).parent(".thematic").find("*").toggle();
-  // = show all contents of the thematic
-})
 
 /* *************************************************************** */
 /* Toggles ******************************************************** */
 // ex: hideClassShowOne('.lesson','#T1L01');
 var hideClassShowOne = function(classToHide,idToShow) {
   itemsToHide = document.querySelectorAll(classToHide);
-  itemsToHide.forEach(function(item) { item.style.display = 'none'});
-  document.querySelectorAll(idToShow)[0].style.display = 'block';
+  itemsToHide.forEach(function(item) { $(item).hide() });
+  $(document.querySelectorAll(idToShow)[0]).show();
   showTargetsAll(idToShow+' > *'); // show all contents of the lesson
 };
 // ex: showTargetsAll('.text');
 var showTargetsAll = function(targetsToShow) {
   itemsToShow = document.querySelectorAll(targetsToShow);
-  itemsToShow.forEach(function(item) { item.style.display = 'block'});
+  itemsToShow.forEach(function(item) { $(item).show() });
 };
 
 // ex: toggleTarget('.text')
 var toggleTarget = function(target) {
 	var targets = document.querySelectorAll(target)
   var current = targets[0].style.display || "block";
-  targets.forEach(function(item) { item.style.display = current == 'block'?'none':'block'});
+  targets.forEach(function(item) {
+    $(item).toggle();
+  });
 }
 
 // Toggle sections contents
@@ -512,15 +505,25 @@ var toggleTarget = function(target) {
         // 
         // Click h3 title, toggle content
         $('document').ready(function(){
-          $('.thematic > *').addClass('is-hidden');
-          $('.thematic > h3').toggleClass('is-hidden');
-          $('h3').click(function(){
-            $(this).parent(".thematic").find(">*").toggleClass('is-hidden');
-            $(this).toggleClass('is-hidden');
+          $('.thematic').hide(); // hide all thematics's subcontents
+         // $('.thematic > h3').toggle(); // show all h3
+          $('h2').click(function(){
+            $(this).parent().find('.thematic').toggle();
           })
         });
         </script>
 <!-- 
+
+// hide all
+$(".thematic > *").hide(); // hide all thematics's subcontents
+$(".thematic > h3").show(); // show all h3
+// Click h3, show content
+$('h3').click(function(){
+  $(this).parent(".thematic").find("h3").hide(); // hide clicked thematic's h3s
+  $(this).parent(".thematic").toggle(); // show all contents of the thematic
+  // = show all contents of the thematic
+})
+
 - [x] Home page redrawing
 - [x] Authors improvements
 - [x] Text image smaller
@@ -537,173 +540,168 @@ var toggleTarget = function(target) {
 - []
   
 -->
-        <div id="home" class="home columns is-tablet is-multiline is-centered is-vcentered has-text-centered has-ratio is-4by3">
-          <div class="column is-12">
-            <div class="content subtitle is-size-6 fra has-text-centered">
-              <img src="./images/TKD-home-1.png" style="max-width: 75%;" alt="home image">
-              <br><br>
-              <p style="background: #FFFFFF88;padding:.5em;">Programme du <b><i>club de Taekwondo de Labenne</i>: Isabelle Vaqué</b>
-                <br>Collection des contenus et conception web: Hugo Lopez.
-              </p>
-              <!-- <p class="subtitle is-size-6 fra" style="background: #FFFFFF88;padding:.5em;">Financé par ....</p> -->
-              <a href="">
-                <figure class="image is-32x32" style="display:inline-block;margin:0;">
-                  <img src="./images/profile-yug.png" style="max-width: 32px;">
-                </figure>
-              </a>
-            </div>
-          </div>
-          <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-              toggleTarget('.lesson');
-              toggleTarget('#scrollToTopBtn');
-            });
-          </script>
-          <br clear="all">
-        </div>
-        <div id="course">
-        <div id="T1L00" class="lesson">
-          <div>
-            <h2 class="title has-text-L00 is-size-4-touch is-size-3 kor is-inline-block">0<i class="kaishu">、</i>기본 gibon</h2>
-            <h2 class="title has-text-L00 is-size-5-touch is-size-4 fra is-inline-block">Bases</h2>
-            <div id="T1L00VA" class="thematic vocabulary" data-list="taekwondo,tae,kwon,do" data-class='is-minimal'></div>
-            <div id="T1L00VB" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop,wi,momtong / junggan,arae,eolgul,arae,chagi,makgi,chigi,seogi / jase" data-class='is-minimal'></div><!--
-            <div id="T1L01VS" class="thematic vocabulary" data-list="詞,第一課,段,漢字"
-              data-class='is-minimal'></div>
-            <div id="T1L01VES" class="thematic vocabulary" data-list="瑪丹娜,歌手,德國,畢卡索,西班牙,畫家,村上春樹,作家"
-              data-class='is-minimal'></div> -->
-          </div>
-        </div>
+  <div id="home" class="home columns is-tablet is-multiline is-centered is-vcentered has-text-centered has-ratio is-4by3">
+    <div class="column is-12">
+      <div class="content subtitle is-size-6 fra has-text-centered">
+        <img src="./images/TKD-home-1.png" style="max-width: 75%;" alt="home image">
+        <br><br>
+        <p style="background: #FFFFFF88;padding:.5em;">Programme du <b><i>club de Taekwondo de Labenne</i>: Isabelle Vaqué</b>
+    <br>Collection des contenus et conception web: Hugo Lopez.
+        </p>
+        <!-- <p class="subtitle is-size-6 fra" style="background: #FFFFFF88;padding:.5em;">Financé par ....</p> -->
+        <a href="">
+    <figure class="image is-32x32" style="display:inline-block;margin:0;">
+      <img src="./images/profile-yug.png" style="max-width: 32px;">
+    </figure>
+        </a>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) {
+        toggleTarget('.lesson');
+        toggleTarget('#scrollToTopBtn');
+      });
+    </script>
+    <br clear="all">
+  </div>
+  <div id="course">
+  <div id="T1L00" class="lesson">
+    <div>
+      <h2 class="title has-text-L00 is-size-4-touch is-size-2 kor is-inline-block">L0<i class="kaishu">、</i>기본 gibon</h2>
+      <h2 class="title has-text-L00 is-size-5-touch is-size-3 fra is-inline-block">Bases</h2>
+      <div id="T1L00VA" class="thematic vocabulary" data-list="taekwondo,tae,kwon,do" data-class='is-minimal'></div>
+      <div id="T1L00VB" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop,wi,momtong / junggan,arae,eolgul,arae,chagi,makgi,chigi,seogi / jase" data-class='is-minimal'></div>
+    </div>
+  </div>
 
-        <div id="T1L01" class="lesson">
-          <div>
-            <h2 class="title has-text-L01 is-size-4-touch is-size-3 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L01 is-size-5-touch is-size-4 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L01TA" class="thematic text"></div>
-            <div id="T1L01TB" class="thematic text"></div>
-            <div id="T1L01TC" class="thematic text"></div>
-          </div>
-            
-          <div>
-            <h2 class="title has-text-L01 is-size-4-touch is-size-3 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title has-text-L01 is-size-5-touch is-size-4 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L01VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-              data-class='is-minimal'></div>
-          </div>
-        </div>
+  <div id="T1L01" class="lesson">
+    <div>
+      <h2 class="title has-text-L01 is-size-4-touch is-size-2 kor is-inline-block">L1<i class="kaishu">、</i>태극 1장</h2>
+      <h2 class="title has-text-L01 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Il Jang</h2>
+      <div id="T1L01TA" class="thematic text"></div>
+      <div id="T1L01TB" class="thematic text"></div>
+      <div id="T1L01TC" class="thematic text"></div>
+    </div>
       
+    <div>
+      <h2 class="title has-text-L01 is-size-4-touch is-size-2 kor is-inline-block">L1<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+      <h2 class="title has-text-L01 is-size-5-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+      <div id="T1L01VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+        data-class='is-minimal'></div>
+    </div>
+  </div>
       
-        <div id="T1L02" class="lesson">
-          <div>
-            <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L02TA" class="thematic text"></div>
-            <div id="T1L02TB" class="thematic text"></div>
-            <div id="T1L02TC" class="thematic text"></div>
-          </div>
+  <div id="T1L02" class="lesson">
+    <div>
+      <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">L2<i class="kaishu">、</i>태극 2장</h2>
+      <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Yi Jang</h2>
+      <div id="T1L02TA" class="thematic text"></div>
+      <div id="T1L02TB" class="thematic text"></div>
+      <div id="T1L02TC" class="thematic text"></div>
+    </div>
 
-          <div>
-            <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L02VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-              data-class='is-minimal'></div>
-          </div>
-        </div>
+    <div>
+      <h2 class="title has-text-L02 is-size-4-touch is-size-2 kor is-inline-block">L2<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+      <h2 class="title has-text-L02 is-size-5-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+      <div id="T1L02VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+        data-class='is-minimal'></div>
+    </div>
+  </div>
 
-        <div id="T1L03" class="lesson">
-          <div>
-            <h2 class="title has-text-L03 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L03 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L03TA" class="thematic text"></div>
-            <div id="T1L03TB" class="thematic text"></div>
-            <div id="T1L03TC" class="thematic text"></div>
-          </div>
-          <div>
-            <h2 class="title has-text-L03 is-size-3-touch is-size-2 kor is-inline-block">二<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
-            <h2 class="title has-text-L03 is-size-4-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
-            <div id="T1L03VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-              data-class='is-minimal'></div>
-          </div>
-        </div>
+  <div id="T1L03" class="lesson">
+    <div>
+      <h2 class="title has-text-L03 is-size-4-touch is-size-2 kor is-inline-block">L3<i class="kaishu">、</i>태극 3장</h2>
+      <h2 class="title has-text-L03 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Sam Jang</h2>
+      <div id="T1L03TA" class="thematic text"></div>
+      <div id="T1L03TB" class="thematic text"></div>
+      <div id="T1L03TC" class="thematic text"></div>
+    </div>
+    <div>
+      <h2 class="title has-text-L03 is-size-4-touch is-size-2 kor is-inline-block">L3<i class="kaishu">、</i>수업 어휘 sueob eohwi</h2>
+      <h2 class="title has-text-L03 is-size-5-touch is-size-3 fra is-inline-block">Vocabulaire</h2>
+      <div id="T1L03VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
+        data-class='is-minimal'></div>
+    </div>
+  </div>
 
-        <div id="T1L04" class="lesson">
-          <div>
-            <h2 class="title has-text-L04 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L04 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L04TA" class="thematic text"></div>
-            <div id="T1L04TB" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L04" class="lesson">
+    <div>
+      <h2 class="title has-text-L04 is-size-4-touch is-size-2 kor is-inline-block">L4<i class="kaishu">、</i>태극 4장</h2>
+      <h2 class="title has-text-L04 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Sa Jang</h2>
+      <div id="T1L04TA" class="thematic text"></div>
+      <div id="T1L04TB" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L05" class="lesson">
-          <div>
-            <h2 class="title has-text-L05 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L05 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L05TA" class="thematic text"></div>
-            <div id="T1L05TB" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L05" class="lesson">
+    <div>
+      <h2 class="title has-text-L05 is-size-4-touch is-size-2 kor is-inline-block">L5<i class="kaishu">、</i>태극 5장</h2>
+      <h2 class="title has-text-L05 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Oh Jang</h2>
+      <div id="T1L05TA" class="thematic text"></div>
+      <div id="T1L05TB" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L06" class="lesson">
-          <div>
-            <h2 class="title has-text-L06 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L06 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L06TA" class="thematic text"></div>
-            <div id="T1L06TB" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L06" class="lesson">
+    <div>
+      <h2 class="title has-text-L06 is-size-4-touch is-size-2 kor is-inline-block">L6<i class="kaishu">、</i>태극 6장</h2>
+      <h2 class="title has-text-L06 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Yuk Jang</h2>
+      <div id="T1L06TA" class="thematic text"></div>
+      <div id="T1L06TB" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L07" class="lesson">
-          <div>
-            <h2 class="title has-text-L07 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L07 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L07TA" class="thematic text"></div>
-            <div id="T1L07TB" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L07" class="lesson">
+    <div>
+      <h2 class="title has-text-L07 is-size-4-touch is-size-2 kor is-inline-block">L7<i class="kaishu">、</i>태극 7장</h2>
+      <h2 class="title has-text-L07 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Chil Jang</h2>
+      <div id="T1L07TA" class="thematic text"></div>
+      <div id="T1L07TB" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L08" class="lesson">
-          <div>
-            <h2 class="title has-text-L08 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L08 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L08TA" class="thematic text"></div>
-            <div id="T1L08TB" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L08" class="lesson">
+    <div>
+      <h2 class="title has-text-L08 is-size-4-touch is-size-2 kor is-inline-block">L8<i class="kaishu">、</i>태극 8장</h2>
+      <h2 class="title has-text-L08 is-size-5-touch is-size-3 fra is-inline-block">Taegeuk Pal Jang</h2>
+      <div id="T1L08TA" class="thematic text"></div>
+      <div id="T1L08TB" class="thematic text"></div>
+    </div>
+  </div>
 
-        <!-- BLACK BELT -->
-        <div id="T1L09" class="lesson">
-          <div>
-            <h2 class="title has-text-L09 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L09 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L09TA" class="thematic text"></div>
-          </div>
-        </div>
-        <!-- -->
-        <div id="T1L10" class="lesson">
-          <div>
-            <h2 class="title has-text-L10 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L10 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L10TA" class="thematic text"></div>
-          </div>
-        </div>
+  <!-- BLACK BELT -->
+  <div id="T1L09" class="lesson">
+    <div>
+      <h2 class="title has-text-L09 is-size-4-touch is-size-2 kor is-inline-block">L9<i class="kaishu">、</i>고단자 품새 Koryo Poomsae</h2>
+      <h2 class="title has-text-L09 is-size-5-touch is-size-3 fra is-inline-block">Poomsae supérieur (1)</h2>
+      <div id="T1L09TA" class="thematic text"></div>
+    </div>
+  </div>
+  <!-- -->
+  <div id="T1L10" class="lesson">
+    <div>
+      <h2 class="title has-text-L10 is-size-4-touch is-size-2 kor is-inline-block">L10<i class="kaishu">、</i>금강 품새 Geumgang Poomsae</h2>
+      <h2 class="title has-text-L10 is-size-5-touch is-size-3 fra is-inline-block">Poomsae supérieur (2)</h2>
+      <div id="T1L10TA" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L11" class="lesson">
-          <div>
-            <h2 class="title has-text-L11 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L11 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L11TA" class="thematic text"></div>
-          </div>
-        </div>
+  <div id="T1L11" class="lesson">
+    <div>
+      <h2 class="title has-text-L11 is-size-4-touch is-size-2 kor is-inline-block">L11<i class="kaishu">、</i>태백 품새 Taebaek Poomsae</h2>
+      <h2 class="title has-text-L11 is-size-5-touch is-size-3 fra is-inline-block">Poomsae supérieur (3)</h2>
+      <div id="T1L11TA" class="thematic text"></div>
+    </div>
+  </div>
 
-        <div id="T1L12" class="lesson">
-          <div>
-            <h2 class="title has-text-L12 is-size-4-touch is-size-2 kor is-inline-block">一<i class="kaishu">、</i>품새/태극</h2>
-            <h2 class="title has-text-L12 is-size-5-touch is-size-3 fra is-inline-block">Poomsae/Taegeuk</h2>
-            <div id="T1L12TA" class="thematic text"></div>
-          </div>
-        </div>
-        </div>
+  <div id="T1L12" class="lesson">
+    <div>
+      <h2 class="title has-text-L12 is-size-4-touch is-size-2 kor is-inline-block">L12<i class="kaishu">、</i>평원 품새 Pyongwon Poomsae</h2>
+      <h2 class="title has-text-L12 is-size-5-touch is-size-3 fra is-inline-block">Poomsae supérieur (4)</h2>
+      <div id="T1L12TA" class="thematic text"></div>
+    </div>
+  </div>
+  </div>
 <!-- -->
 
       </section>
@@ -725,7 +723,7 @@ var textDataToTemplate = function(obj) {
     <span class="title is-size-5-touch is-size-4 kor is-inline-block has-text-L${lesson}">${titleKor}</span>
     <span class="title is-size-6-touch is-size-5 fra is-inline-block">${titleFra}</span>
   </h3>
-  <p class="is-size-5 fra"> ${guidelineFra} </p>
+  <p class="is-size-6 fra"> ${guidelineFra} </p>
   <div class="columns is-tablet is-multiline is-centered is-vcentered">
     ${video ? `<div class="column is-12">
       <figure class="image is-16by9">
