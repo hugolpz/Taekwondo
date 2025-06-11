@@ -3,68 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <title>Vocabulary Table</title>
+    <link rel="stylesheet" href="css/bulma@0.9.0.min.css">
     <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
+      .vocabulary {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #00000022;
       }
-      th,
-      td {
-        border: 1px solid #ccc;
-        padding: 8px;
+      .kor {
+        font-family: 'Dosis', sans-serif;
+        font-weight: 500;
       }
-      th {
-        background: #f0f0f0;
+      .fra {
+        font-family: 'Dosis', sans-serif;
       }
+      /* Optional: mimic lesson color for header */
+      .has-text-L00 { color: #2160C4; }
+      .has-background-L00 { background: #2160C4; color: #fff; }
+      /* ...add more lesson colors if needed... */
+      .vocabulary table thead tr:first-of-type { background: #2160C4AA; }
+      .vocabulary table tr:nth-of-type(even) { background: #2160C466; }
+      .vocabulary table tr:nth-of-type(odd) { background-color: #2160C488; }
+        
     </style>
   </head>
   <body>
-    <h1>Vocabulary Table</h1>
-    <table id="vocabulary-table"></table>
-    <h1>Gdoc Vocabulary Table</h1>
-    <div id="table-container"></div>
-    <div id="table-container2"></div>
+    <section class="section">
+      <div class="container">
+        <div class="vocabulary">
+          <h3>
+            <span class="title is-size-4 kor has-text-L00">수업 어휘 sueob eohwi</span>
+            <span class="title is-size-5 fra">Lexique du cours (Local)</span>
+          </h3>
+          <div id="vocabulary-table"></div>
+        </div>
+        <div class="vocabulary">
+          <h3 style="display: flex; align-items: center; justify-content: space-between;">
+            <span>
+              <span class="title is-size-4 kor has-text-L00">수업 어휘 sueob eohwi</span>
+              <span class="title is-size-5 fra">Lexique du cours (Gdoc)</span>
+            </span>
+            <a target="_blank" class="button is-link is-small" 
+              style="margin-left: auto;"
+              href="https://docs.google.com/spreadsheets/d/1yip2QogAD1-4BjvmaT9QzBWX6n2s44QFW77Gbb5KV3c/edit"
+            >✏️ Edit data</a>
+          </h3>
+          <div id="table-container"></div>
+        </div>
+        <div class="vocabulary">
+          <h3>
+            <span class="title is-size-4 kor has-text-L00">수업 어휘 sueob eohwi</span>
+            <span class="title is-size-5 fra">Lexique du cours (Gdoc 2)</span>
+          </h3>
+          <div id="table-container2"></div>
+        </div>
+        <div class="vocabulary">
+          <h3>
+            <span class="title is-size-4 kor has-text-L00">수업 어휘 sueob eohwi</span>
+            <span class="title is-size-5 fra">Lexique JSON (Gdoc)</span>
+          </h3>
+          <div id="json-container"></div>
+        </div>
+      </div>
+    </section>
     <script src="js/data/vocabulary.js"></script>
     <script>
-      var json2html = function (json, elementId) {
-        // Collect all unique keys
-        const allKeys = Array.from(
-          new Set(json.flatMap((obj) => Object.keys(obj)))
-        );
-        // Create table and tbody
-        const table = document.getElementById(elementId);
-        const thead = document.createElement("thead");
-        const tbody = document.createElement("tbody");
-        // Create header row
-        const tr = document.createElement("tr");
-        allKeys.forEach((key) => {
-          var cell = document.createElement("th");
-          cell.textContent = key;
-          tr.appendChild(cell);
-        });
-        thead.appendChild(tr);
+      // Render a Bulma-styled table
+      function json2bulmaTable(json) {
+        if (!json.length) return '';
+        const keys = Object.keys(json[0]);
+        let thead = '<thead><tr>' + keys.map(k => `<th>${k}</th>`).join('') + '</tr></thead>';
+        let tbody = '<tbody>' + json.map(row =>
+          '<tr>' + keys.map(k => `<td>${row[k] || ''}</td>`).join('') + '</tr>'
+        ).join('') + '</tbody>';
+        return `<table class="table is-fullwidth is-size-6-mobile is-size-5">${thead}${tbody}</table>`;
+      }
 
-        // Render data rows
-        json.forEach((obj) => {
-          const tr = document.createElement("tr");
-          allKeys.forEach((key) => {
-            var cell = document.createElement("td");
-            cell.textContent = obj[key] !== undefined ? obj[key] : "";
-            tr.appendChild(cell);
-          });
-          tbody.appendChild(tr);
-        });
-        table.appendChild(thead);
-        table.appendChild(tbody);
-      };
-      json2html(dictionary, "vocabulary-table");
+      // Local vocabulary table creation
+      document.getElementById('vocabulary-table').innerHTML = json2bulmaTable(dictionary);
 
       // Google Sheets CSV export URL
       const sheetCsvUrl =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vRh7qWK8ISRwP2jw3AvgZ5YVgfLMFW_fOax52rskaaoHAxKXYOLQe9piDjGJIK0_Ehhj49ygZ5f0nw_/pub?gid=0&single=true&output=csv&origin=*";
 
+      // Fetch csv, output json data
       var dictionaryGdoc = [];
-
       function csvToArray(str, delimiter = ",") {
         const rows = str.trim().split("\n");
         // Regex to split CSV row, handling quoted fields with commas
@@ -105,25 +127,14 @@
         .then((response) => response.text())
         .then((csv) => {
           dictionaryGdoc = csvToArray(csv);
-          console.log(dictionaryGdoc);
-          renderTable(dictionaryGdoc);
-          json2html(dictionaryGdoc, "table-container2");
+          document.getElementById("table-container").innerHTML = json2bulmaTable(dictionaryGdoc);
+          document.getElementById("table-container2").innerHTML = json2bulmaTable(dictionaryGdoc);
+          document.getElementById('json-container').innerHTML = `<pre>${JSON.stringify(
+            dictionaryGdoc,
+            null,
+            2
+          )}</pre>`;
         });
-
-      function renderTable(dictionary) {
-        if (!dictionary.length) return;
-        const keys = Object.keys(dictionary[0]);
-        let html = "<table><thead><tr>";
-        keys.forEach((key) => (html += `<th>${key}</th>`));
-        html += "</tr></thead><tbody>";
-        dictionary.forEach((entry) => {
-          html += "<tr>";
-          keys.forEach((key) => (html += `<td>${entry[key]}</td>`));
-          html += "</tr>";
-        });
-        html += "</tbody></table>";
-        document.getElementById("table-container").innerHTML = html;
-      }
     </script>
   </body>
 </html>
