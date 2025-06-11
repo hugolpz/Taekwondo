@@ -52,7 +52,7 @@
       <!-- NAVBAR BASE: while on small devices-->
       <div class="navbar-brand is-size-6">
         <!-- LOGO AND NAME -->
-        <a id="appLogo" class="navbar-item" href="./index.html">
+        <a id="appLogo" class="navbar-item" href="./">
           <i class="unicorn" style="margin-right: 0.2rem !important;"></i>
           <span class="fra has-text-weight-bold has-text-black is-size-5 is-hidden-touch">Happy TKD <e class="has-text-success">(Alpha version)</e></span>
         </a>
@@ -928,7 +928,6 @@ var playString = function(str) {
 };
 
 const spokenElements = document.querySelectorAll('.kor, .cmn');
-let touchHandled = false;
 spokenElements.forEach(spokenElement => {
   // Support both click and touch events
   const handler = (event) => {
@@ -936,17 +935,8 @@ spokenElements.forEach(spokenElement => {
     let wordStr = event.target.textContent.replace(/[A-Za-z]/g, '').trim();
     playString(wordStr);
   };
-  spokenElement.addEventListener('touchstart', function(event) {
-    touchHandled = true;
-    handler(event);
-  }, {passive: false});
-  spokenElement.addEventListener('click', function(event) {
-    if (touchHandled) {
-      touchHandled = false;
-      return;
-    }
-    handler(event);
-  });
+  spokenElement.addEventListener('click', handler);
+  spokenElement.addEventListener('touchstart', handler, {passive: false});
 });
 
 
