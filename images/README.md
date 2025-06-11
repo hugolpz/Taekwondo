@@ -8,7 +8,12 @@
 * **Prompt:** A Karate teen, full height, yellow waist belt. Face: brown skin, confident, playful, front facing, Karate lateral kick. Behind: colorful watercolor single circular patch, no text. Overall : Asian culture. Background pure white. Icon, super simplified manga watercolor.
 
 # Rename files
+```bash
 for file in icons-*.png; do
     newname=$(echo "$file" | sed 's/icons-/icon-/')
     mv "$file" "$newname"
+    git add "$file"
+    git add "$newname"
 done
+# git commit -m "Rename icons-*.png to icon-*.png"
+```
