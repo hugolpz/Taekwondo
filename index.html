@@ -131,49 +131,49 @@
       <!-- SIDEBAR ----------------------------------------------------- -->
       <section class="menu-left column is-2 px-1 pt-1 pb-0" id="main-left">
         <!-- Document's options ---------- -->
-        <article id="lessonsPointers" class="message mb-1 is-primary is-active">
+        <article id="lessonsMenu" class="message mb-1 is-primary is-active">
           <div class="message-header is-small">
             Programme <i class="icon caret has-background-primary-dark is-rounded"></i>
           </div>
           <div class="message-body">
             <p class="buttons">
-              <a class="button is-small has-background-L00" onclick="hideClassShowOne('.lesson','#T1L00');">
+              <a class="button is-small has-background-L00" onclick="hideClassShowOne('.lesson','#T1L00, #T1L00 .thematic');">
                 <span>Leçon 0</span>
               </a>
-              <a class="button is-small has-background-L01" onclick="hideClassShowOne('.lesson','#T1L01');">
+              <a class="button is-small has-background-L01" onclick="hideClassShowOne('.lesson','#T1L01, #T1L01 .thematic');">
                 <span>Leçon 1</span>
               </a>
-              <a class="button is-small has-background-L02" onclick="hideClassShowOne('.lesson','#T1L02');">
+              <a class="button is-small has-background-L02" onclick="hideClassShowOne('.lesson','#T1L02, #T1L02 .thematic');">
                 <span>Leçon 2</span>
               </a>
-              <a class="button is-small has-background-L03" onclick="hideClassShowOne('.lesson','#T1L03');">
+              <a class="button is-small has-background-L03" onclick="hideClassShowOne('.lesson','#T1L03, #T1L03 .thematic');">
                 <span>Leçon 3</span>
               </a>
-              <a class="button is-small has-background-L04" onclick="hideClassShowOne('.lesson','#T1L04');">
+              <a class="button is-small has-background-L04" onclick="hideClassShowOne('.lesson','#T1L04, #T1L04 .thematic');">
                 <span>Leçon 4</span>
               </a>
-              <a class="button is-small has-background-L05" onclick="hideClassShowOne('.lesson','#T1L05');">
+              <a class="button is-small has-background-L05" onclick="hideClassShowOne('.lesson','#T1L05, #T1L05 .thematic');">
                 <span>Leçon 5</span>
               </a>
-              <a class="button is-small has-background-L06" onclick="hideClassShowOne('.lesson','#T1L06');">
+              <a class="button is-small has-background-L06" onclick="hideClassShowOne('.lesson','#T1L06, #T1L06 .thematic');">
                 <span>Leçon 6</span>
               </a>
-              <a class="button is-small has-background-L07" onclick="hideClassShowOne('.lesson','#T1L07');">
+              <a class="button is-small has-background-L07" onclick="hideClassShowOne('.lesson','#T1L07, #T1L07 .thematic');">
                 <span>Leçon 7</span>
               </a>
-              <a class="button is-small has-background-L08" onclick="hideClassShowOne('.lesson','#T1L08');">
+              <a class="button is-small has-background-L08" onclick="hideClassShowOne('.lesson','#T1L08, #T1L08 .thematic');">
                 <span>Leçon 8</span>
               </a>
-              <a class="button is-small has-background-L09" onclick="hideClassShowOne('.lesson','#T1L09');">
+              <a class="button is-small has-background-L09" onclick="hideClassShowOne('.lesson','#T1L09, #T1L09 .thematic');">
                 <span>Leçon 9</span>
               </a>
-              <a class="button is-small has-background-L10" onclick="hideClassShowOne('.lesson','#T1L10');">
+              <a class="button is-small has-background-L10" onclick="hideClassShowOne('.lesson','#T1L10, #T1L10 .thematic');">
                 <span>Leçon 10</span>
               </a>
-              <a class="button is-small has-background-L11" onclick="hideClassShowOne('.lesson','#T1L11');">
+              <a class="button is-small has-background-L11" onclick="hideClassShowOne('.lesson','#T1L11, #T1L11 .thematic');">
                 <span>Leçon 11</span>
               </a>
-              <a class="button is-small has-background-L12" onclick="hideClassShowOne('.lesson','#T1L12');">
+              <a class="button is-small has-background-L12" onclick="hideClassShowOne('.lesson','#T1L12, #T1L12 .thematic');">
                 <span>Leçon 12</span>
               </a>
               <a class="button is-small is-danger" onclick="showTargetsAll('.lesson')">
@@ -191,21 +191,20 @@
           <div class="message-body">
             <p class="buttons">
 
-              <a class="button is-small is-success" onclick="toggleTarget('.text')">
+              <a class="button is-small is-success" onclick="buttonTogglesThematic('.text')">
                 <span class="icon has-text-danger">
                   <i class="fas fa-heart"></i>
                 </span>
                 <span>Leçons</span>
               </a>
-              <a class="button is-small is-danger" onclick="toggleTarget('.vocabulary')">
+              <a class="button is-small is-danger" onclick="buttonTogglesThematic('.vocabulary')">
                 <span>Lexiques</span>
                 <span class="icon">
                   <i class="fas fa-eye"></i>
                 </span>
               </a>
-              <a class="button is-small is-success" onclick="
-                showTargetsAll('.text,.vocabulary')">
-                <span id="tout">Tout afficher</span>
+              <a id="masterFilter" class="button is-small is-success" onclick="showTargetsAll('.text,.vocabulary')">
+                <span>Tout afficher</span>
                 <span class="icon">
                   <i class="fas fa-eye"></i>
                 </span>
@@ -213,34 +212,43 @@
             </p>
           </div>
 <script>
-$('#masking .buttons a').click(function(){
-  var tout = $(this).find('#tout');
-  console.log(tout);
-  $(this).toggleClass('has-background-grey-light')
-  if (tout[0]) { 
-    $(this).toggleClass('has-background-grey-light')
-    $('#masking .buttons a').removeClass('has-background-grey-light');
+var buttonTogglesThematic = function(selector){
+  if ($(this).hasClass('has-background-grey-light')) {
+    showTargetsAll(selector);
+    $(this).removeClass('has-background-grey-light')
+  } else {
+    hideTargetsAll(selector);
+    $(this).addClass('has-background-grey-light')
   }
+};
+
+$('#masking a#masterFilter').click(function(){
+  $('#masking .buttons a').removeClass('has-background-grey-light');
 });
 
 /* *************************************************************** */
 /* Toggles ******************************************************** */
 // ex: hideClassShowOne('.lesson','#T1L01');
-var hideClassShowOne = function(classToHide,idToShow) {
-  itemsToHide = document.querySelectorAll(classToHide);
+var hideClassShowOne = function(classToHide,selector) {
+  var itemsToHide = document.querySelectorAll(classToHide);
   itemsToHide.forEach(function(item) { $(item).hide() });
-  $(document.querySelectorAll(idToShow)[0]).show();
-  showTargetsAll(idToShow+' *'); // show all contents of the lesson
+  $(document.querySelectorAll(selector)[0]).show();
+  showTargetsAll(selector); // show all contents of the lesson
 };
 // ex: showTargetsAll('.text');
 var showTargetsAll = function(targetsToShow) {
-  itemsToShow = document.querySelectorAll(targetsToShow);
+  var itemsToShow = document.querySelectorAll(targetsToShow);
   itemsToShow.forEach(function(item) { $(item).show() });
 };
-
+// ex: hideTargetsAll('.text');
+var hideTargetsAll = function(targetsToHide) {
+  var itemsToHide = document.querySelectorAll(targetsToHide);
+  itemsToHide.forEach(function(item) { $(item).hide(); });
+};
 // ex: toggleTarget('.text')
 var toggleTarget = function(target) {
-	var targets = document.querySelectorAll(target)
+  var targets = document.querySelectorAll(target);
+  if (targets.length === 0) return;
   var current = targets[0].style.display || "block";
   targets.forEach(function(item) {
     $(item).toggle();
@@ -494,46 +502,48 @@ var toggleTarget = function(target) {
   
       <section id="main-center" class="column container has-background-white">  <!-- is-10 px-6 pt-6 pb-6 -->
           
-        <script>
-        document.querySelector('body').onclick= function (){
-          if(document.querySelector('#home').style.display!=='none'){
-            toggleTarget('.home');
-            showTargetsAll('.lesson');
-            toggleTarget('#scrollToTopBtn');
-          }
-        }
-        // 
-        // Click h3 title, toggle content
-        $('document').ready(function(){
-          $('.thematic').hide(); // hide all thematics's subcontents
-        // $('.thematic > h3').toggle(); // show all h3
-        $('h2').click(function(){
-          $(this).parent().find('.thematic').toggle();
-        });
+<script>
+document.querySelector('body').onclick= function (){
+  if(document.querySelector('#home').style.display!=='none'){
+    toggleTarget('.home');
+    showTargetsAll('.lesson');
+    toggleTarget('#scrollToTopBtn');
+  }
+};
 
-        // Restore guideline visibility from localStorage
-        if (localStorage.getItem('guidelineVisible') === 'false') {
-          $('.guideline').hide();
-        }
+// Click h3 title, toggle content
+$(document).ready(function(){
+  // At start, j2 titles visible, thematic contents hidden
+  $('.thematic').hide();
+  // Click on h2 title toggles contents
+  $('h2').click(function(){
+    $(this).parent().find('.thematic').toggle();
+  });
 
-        $('.guideline-info').click(function(){
-          $('.guideline').toggle();
-          // Save visibility state to localStorage
-          localStorage.setItem('guidelineVisible', $('.guideline').is(':visible'));
-        });
-        });
-        </script>
+  // Display persistences via localStorage
+  // Manage menu visibility
+  if (localStorage.getItem('menuVisible') === 'false') {
+    $('#lessonsMenu').toggleClass('is-active')
+  }
+  $('#lessonsMenu .message-header').click(function(){
+    console.log('lessonsMenu clicked');
+    // $('#lessonsMenu').toggleClass('is-active')
+    localStorage.setItem('menuVisible', $('#lessonsMenu').hasClass('is-active'));
+  });
+
+  // Manage guidelines visibility
+  if (localStorage.getItem('guidelineVisible') === 'false') {
+    $('.guideline-text').hide();
+  }
+  $('.guideline-info').click(function(){
+    console.log('guideline-info clicked');
+    $('.guideline-text').toggle();
+    localStorage.setItem('guidelineVisible', $('.guideline-text').is(':visible'));
+  });
+
+});
+</script>
 <!-- 
-
-// hide all
-$(".thematic > *").hide(); // hide all thematics's subcontents
-$(".thematic > h3").show(); // show all h3
-// Click h3, show content
-$('h3').click(function(){
-  $(this).parent(".thematic").find("h3").hide(); // hide clicked thematic's h3s
-  $(this).parent(".thematic").toggle(); // show all contents of the thematic
-  // = show all contents of the thematic
-})
 
 - [x] Home page redrawing
 - [x] Authors improvements
@@ -608,8 +618,7 @@ $('h3').click(function(){
         <span class="kor">수업 어휘 sueob eohwi</span>
         <span class="fra">Vocabulaire</span>
       </h2>
-      <div id="T1L01VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-        data-class='is-minimal'></div>
+      <div id="T1L01VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop" data-class='is-minimal'></div>
     </div>
   </div>
       
@@ -632,8 +641,7 @@ $('h3').click(function(){
         <span class="kor">수업 어휘 sueob eohwi</span>
         <span class="fra">Vocabulaire</span>
       </h2>
-      <div id="T1L02VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop"
-        data-class='is-minimal'></div>
+      <div id="T1L02VA" class="thematic vocabulary" data-list="ap,dwi,oen,oreun,yeop" data-class='is-minimal'></div>
     </div>
   </div>
 
@@ -799,7 +807,7 @@ var textDataToTemplate = function(obj) {
     </span> 
   </h3>
   <p class="icon-text">  
-    <span class="guideline is-size-6 fra">${guidelineFra}</span>
+    <span class="guideline-text is-size-6 fra">${guidelineFra}</span>
   </p>
   <div class="columns is-tablet is-multiline is-centered is-vcentered">
     ${video ? `<div class="column is-12">
