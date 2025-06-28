@@ -30,7 +30,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Jaune (0)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_jaune-0.jpg" ]
+    image: [ "images/Taekwondo_keup-9.jpg" ]
   },
   {
     lesson: "02",
@@ -55,7 +55,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Jaune (1)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_jaune-1.jpg" ]
+    image: [ "images/Taekwondo_keup-8.jpg" ]
   },
   {
     lesson: "02",
@@ -63,7 +63,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Jaune (2)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_jaune-2.jpg" ]
+    image: [ "images/Taekwondo_keup-7.jpg" ]
   },
   {
     lesson: "03",
@@ -88,7 +88,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Bleue (0)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_blue-0.jpg" ]
+    image: [ "images/Taekwondo_keup-6.jpg" ]
   },
   {
     lesson: "04",
@@ -113,7 +113,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Bleue (1)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_blue-1.jpg" ]
+    image: [ "images/Taekwondo_keup-5.jpg" ]
   },
   {
     lesson: "05",
@@ -138,7 +138,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Bleue (2)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_blue-2.jpg" ]
+    image: [ "images/Taekwondo_keup-4.jpg" ]
   },
   {
     lesson: "06",
@@ -163,7 +163,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Rouge (0)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_red-0.jpg" ]
+    image: [ "images/Taekwondo_keup-3.jpg" ]
   },
   {
     lesson: "07",
@@ -188,7 +188,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Rouge (1)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_red-1.jpg" ]
+    image: [ "images/Taekwondo_keup-2.jpg" ]
   },
   {
     lesson: "08",
@@ -213,7 +213,7 @@ var lessons = [
     titleKor: "시험 siheom",
     titleFra: "Programme ceinture Rouge (2)",
     guidelineFra: "1. Étudier le vocabulaire ; 2. Étudier les questions ; 3. Partiquer les exercices.",
-    image: [ "images/Taekwondo_red-2.jpg" ]
+    image: [ "images/Taekwondo_keup-1.jpg" ]
   },
   {
     lesson: "09",
