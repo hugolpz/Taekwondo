@@ -12,7 +12,7 @@ var lessons = [
     section: "A",
     titleKor: "비디오 bidio",
     titleFra: "Vidéo",
-    guidelineFra: "1. Suivre le rythme ; 2. Identifier les sections ; 3. Pratiquer l'enchainement.",
+    guidelineFra: "王 shape; wings: low, medium, high blocks then finish by punch; main axis low, wings up ; 1. Suivre le rythme ; 2. Identifier les sections ; 3. Pratiquer l'enchainement.",
     video: "https://www.youtube.com/embed/pcBdDKaw35Q?start=17&end=47&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     video2: "https://www.youtube.com/watch?v=6rdB_EfCosM"
   },
@@ -37,7 +37,7 @@ var lessons = [
     section: "A",
     titleKor: "비디오 bidio",
     titleFra: "Vidéo",
-    guidelineFra: "1. Suivre le rythme ; 2. Identifier les sections ; 3. Pratiquer l'enchainement.",
+    guidelineFra: "士 shape; main axis high, tip of wings low ; increamental to center. 1. Suivre le rythme ; 2. Identifier les sections ; 3. Pratiquer l'enchainement.",
     video: "https://www.youtube.com/embed/jZiFWTuXS8Y?start=10&list=PLs51UE_WmSzZ4zR38PUtTJrRxJCJQRxn7",
     video2: "https://www.youtube.com/watch?v=1MKfAXX-MEo",
   },
