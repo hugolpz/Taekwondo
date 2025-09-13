@@ -57,10 +57,6 @@
           <span class="fra has-text-weight-bold has-text-black is-size-5 is-hidden-touch">Happy TKD <e class="has-text-success">(Alpha version)</e></span>
         </a>
         <span id="intro" class="navbar-item fra has-text-weight-semibold is-size-6 is-hidden-mobile">Apprenez le Taekwondo avec Hugo !</span>
-    <!-- 
-        <a id="btnDialogues" class="navbar-item"><span class="icon"><i class="fa fa-align-left"></i></span> <span>Dialogues</span></a>
-        <a id="btnLexiques" class="navbar-item"><span class="icon has-text-danger"><i class="fa fa-scroll"></i></span> <span>Lexiques</span></a>
-    -->
         <!-- Github & Twitter : is-hidden-desktop ; style="margin-left:auto;" -->
         <a class="navbar-item is-hidden-desktop has-text-primary" style="margin-left:auto;" href="https://github.com/hugolpz/Taekwondo" target="_blank">
           <span class="icon"><i class="fab fa-lg fa-github-alt fa-w-15"></i></span>
@@ -91,9 +87,9 @@
         <!-- Aligned RIGHT tabs/menus -->
         <div class="navbar-end">
           <!-- Github & Twitter : is-hidden-touch -->
-          <!-- <a class="navbar-item is-hidden-touch has-text-primary" href="https://github.com/hugolpz/csf" target="_blank">
+          <a class="navbar-item is-hidden-touch has-text-primary" href="https://github.com/hugolpz/Taekwondo" target="_blank">
             <span class="icon"><i class="fab fa-lg fa-github-alt fa-w-15"></i></span>
-          </a> -->
+          </a>
           <a class="navbar-item is-hidden-touch" href="https://twitter.com/intent/tweet?text=Je%20teste%20Chinois-Sans-Frontières.%0ahttps:%2F%2Fhugolpz.github.io%2FCSF%2F&amp;via=Github%20@hugo_lz&amp;hashtags=Chinois" target="_blank">
             <span class="icon" style="color: #55acee;"><i class="fab fa-lg fa-twitter fa-w-16"></i></span>
           </a>
@@ -213,23 +209,29 @@
                 </span>
               </a>
               <!-- Columns filters -->
-              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'num')">
+              <a class="button is-small is-info is-hidden-touch" 
+              data-target="num"
+              onclick="toggleColumnFilter('num')">
                 <span>Rang</span>
               </a>
-              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'cmn')">
+              <a class="button is-small is-info" 
+              data-target="cmn"
+              onclick="toggleColumnFilter('cmn')">
                 <span>Chinois</span>
               </a>
-              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'kor')">
+              <a class="button is-small is-info" 
+              data-target="kor"
+              onclick="toggleColumnFilter('kor')">
                 <span>Coréen</span>
               </a>
-              <a class="button is-small is-info has-background-grey-light" 
+              <a class="button is-small is-info" 
               data-target="eng"
-              onclick="toggleColumnFilter(this,'eng'),toggleDefinitionsLanguage(this,'eng');">
+              onclick="toggleColumnFilter('eng');updateTwinColumnFilter('fra')">
                 <span>Anglais</span>
               </a>
               <a class="button is-small is-info" 
               data-target="fra"
-              onclick="toggleColumnFilter(this,'fra'),toggleDefinitionsLanguage(this,'fra');">
+              onclick="toggleColumnFilter('fra');updateTwinColumnFilter('eng')">
                 <span>Français</span>
               </a>
             </p>
@@ -249,26 +251,58 @@ $('#masking a#masterFilter').click(function(){
   $('#masking .buttons a').removeClass('has-background-grey-light');
 });
 
-var toggleColumnFilter = function(button,focus) {
+var toggleColumnStatus = function(focus){
+  var visibility = localStorage.getItem('column_'+focus);
+  localStorage.setItem('column_'+focus, visibility == 'visible' ? 'hidden' : 'visible');
+}
+var toggleColumnFilter = function(focus) {
   // Toggle button style (enable/disable)
-  if ($(button).hasClass('has-background-grey-light')) {
-    $(button).removeClass('has-background-grey-light');
+  var button = $(`#masking .buttons a.button[data-target="${focus}"]`);
+  var lsStatus = localStorage.getItem('column_'+focus) ;
+  if (lsStatus == 'visible') {
+    button.addClass('has-background-grey-light');
+    toggleColumnStatus(focus);
   } else {
-    $(button).addClass('has-background-grey-light');
+    button.removeClass('has-background-grey-light');
+    toggleColumnStatus(focus);
   }
   // Toggle visibility of all matching th and td elements
-  $('th.' + focus + ', td.' + focus).toggle();
+  $('th.'+focus+', td.'+focus).toggle();
 };
 
-var toggleDefinitionsLanguage = function(button,focus) {
-  var thisButtonFocus = focus,
-      thisButton = button,
-      twinButtonFocus = focus == "fra" ? "eng":"fra",
-      twinButton = $(`#masking .buttons a.button[data-target=${twinButtonFocus}]`);
-  toggleColumnFilter(thisButton[0], thisButtonFocus);
-  toggleColumnFilter(twinButton[0], twinButtonFocus);
+var updateTwinColumnFilter = function(twinButtonFocus) {
+  var twinButton = $(`#masking .buttons a.button[data-target="${twinButtonFocus}"]`);
+  toggleColumnFilter(twinButtonFocus);
 }
 
+var initColumns = function() {
+  // Define default hidden columns
+  var columns = ['num', 'cmn', 'kor', 'eng', 'fra'];
+  var defaultHidden = ['num', 'cmn', 'eng'];
+  
+  // Process each column
+  columns.forEach(function(column) {
+    // Check localStorage first
+    var visibility = localStorage.getItem('column_'+column);
+    // If no stored preference, use default
+    if (visibility === null) {
+      localStorage.setItem('column_'+column, 'visible');
+      if (defaultHidden.includes(column)) {
+        console.log('Hiding column by default:', column);
+        toggleColumnFilter(column); // toggles button, cells, ls to hidden
+      }
+    }
+    // Else, toggle hidden ones
+    if (visibility && localStorage.getItem('column_'+column) == 'hidden') {
+      localStorage.setItem('column_'+column, 'visible');
+      toggleColumnFilter(column); // toggles button, cells, ls to hidden
+    }
+  });
+}
+
+$(document).ready(function() {
+   initColumns();
+});
 
 /* *************************************************************** */
 /* Toggles ******************************************************** */
@@ -869,6 +903,7 @@ var textDataToTemplate = function(obj) {
         <iframe
           class="has-ratio"
           src="${video}"
+          loading="lazy"
           frameborder="0"
           allowfullscreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -879,7 +914,8 @@ var textDataToTemplate = function(obj) {
       image.map(img => `
       <div class="column is-6 has-text-centered">
         <figure class="image">
-          <img src="${img}" alt="" style="border:1px solid #CCC;padding:1em;" loading="lazy">
+          <img src="${img}"
+          loading="lazy" alt="" style="border:1px solid #CCC;padding:1em;" loading="lazy">
         </figure>
       </div>`).join('')
       :''
@@ -910,21 +946,21 @@ function json2Table(json, optionalClasses, titles) {
   var lesson = (json[0] && 'lesson' in json[0]) ? json[0].lesson : '-na',
       section = (json[0] && 'section' in json[0]) ? json[0].section : '-na';
   let headers = titles
-    .map((col, i) => `<th class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]=='kor'?'kor':titlesClasses[i]}" style="display:${titlesClasses[i]=='eng'?'none':''}">${titles[i]}</th>`)
+    .map((col, i) => `<th class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]=='kor'?'kor':titlesClasses[i]}">${titles[i]}</th>`)
     .join("");
 
     console.log("json: ", json)
   let rows = json.map((row, num) => {
     console.log("row: ", row)
     let tds = titles.map((col, i) => `
-    <td class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]}" style="display:${titlesClasses[i]=='eng'?'none':''}">
+    <td class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]}">
       ${
       (() => {
         switch (titlesClasses[i]) {
         case 'kor':
           return `<span class="icon is-small"><i class="fas fa-play" aria-hidden="true"></i></span> ${row[titlesClasses[i]]}`;
         case 'num':
-          return num + 1;
+          return num+1;
         case 'cmn':
           return row[titlesClasses[i]]; // keeps the option to convert it all to hans or hant
         default:
