@@ -212,6 +212,26 @@
                   <i class="fas fa-eye"></i>
                 </span>
               </a>
+              <!-- Columns filters -->
+              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'num')">
+                <span>Rang</span>
+              </a>
+              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'cmn')">
+                <span>Chinois</span>
+              </a>
+              <a class="button is-small is-info" onclick="toggleColumnFilter(this,'kor')">
+                <span>Coréen</span>
+              </a>
+              <a class="button is-small is-info has-background-grey-light" 
+              data-target="eng"
+              onclick="toggleColumnFilter(this,'eng'),toggleDefinitionsLanguage(this,'eng');">
+                <span>Anglais</span>
+              </a>
+              <a class="button is-small is-info" 
+              data-target="fra"
+              onclick="toggleColumnFilter(this,'fra'),toggleDefinitionsLanguage(this,'fra');">
+                <span>Français</span>
+              </a>
             </p>
           </div>
 <script>
@@ -228,6 +248,27 @@ var buttonTogglesThematic = function(selector){
 $('#masking a#masterFilter').click(function(){
   $('#masking .buttons a').removeClass('has-background-grey-light');
 });
+
+var toggleColumnFilter = function(button,focus) {
+  // Toggle button style (enable/disable)
+  if ($(button).hasClass('has-background-grey-light')) {
+    $(button).removeClass('has-background-grey-light');
+  } else {
+    $(button).addClass('has-background-grey-light');
+  }
+  // Toggle visibility of all matching th and td elements
+  $('th.' + focus + ', td.' + focus).toggle();
+};
+
+var toggleDefinitionsLanguage = function(button,focus) {
+  var thisButtonFocus = focus,
+      thisButton = button,
+      twinButtonFocus = focus == "fra" ? "eng":"fra",
+      twinButton = $(`#masking .buttons a.button[data-target=${twinButtonFocus}]`);
+  toggleColumnFilter(thisButton[0], thisButtonFocus);
+  toggleColumnFilter(twinButton[0], twinButtonFocus);
+}
+
 
 /* *************************************************************** */
 /* Toggles ******************************************************** */
@@ -340,6 +381,11 @@ var toggleTarget = function(target) {
         .message-body a.button {
           min-width: 6.2em;
           font-weight: 500;
+        }
+        
+        /* Style for disabled filter buttons */
+        .message-body a.button.has-background-grey-light {
+          opacity: 0.7;
         }
         /* Linguistic ****************************************************** */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&display=swap');
@@ -859,19 +905,19 @@ textthematics.forEach(el => {
 function json2Table(json, optionalClasses, titles) {
   optionalClasses = optionalClasses || 'has-background-success',
     // let cols = Object.keys(json[0]);
-    titlesClasses = ['num', 'cmn', 'kor', 'phon', 'eng'],
-    titles = titles || ['#', 'Chinois', 'Coréen', 'Romanisation', 'Définition'];
+    titlesClasses = ['num', 'cmn', 'kor', 'phon', 'eng', 'fra'],
+    titles = titles || ['#', 'Chinois', 'Coréen', 'Romanisation', 'Définition', 'Définition'];
   var lesson = (json[0] && 'lesson' in json[0]) ? json[0].lesson : '-na',
       section = (json[0] && 'section' in json[0]) ? json[0].section : '-na';
   let headers = titles
-    .map((col, i) => `<th class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]=='kor'?'kor':titlesClasses[i]}">${titles[i]}</th>`)
+    .map((col, i) => `<th class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]=='kor'?'kor':titlesClasses[i]}" style="display:${titlesClasses[i]=='eng'?'none':''}">${titles[i]}</th>`)
     .join("");
 
     console.log("json: ", json)
   let rows = json.map((row, num) => {
     console.log("row: ", row)
     let tds = titles.map((col, i) => `
-    <td class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]}">
+    <td class="${titlesClasses[i]=='num'?titlesClasses[i]+' is-hidden-touch':titlesClasses[i]}" style="display:${titlesClasses[i]=='eng'?'none':''}">
       ${
       (() => {
         switch (titlesClasses[i]) {
